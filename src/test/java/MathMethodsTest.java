@@ -1,5 +1,5 @@
 /**
- * Created by 3oleksandr.orlov on 13.05.2017.
+ * Created by oleksandr.orlov on 13.05.2017.
  */
 public class MathMethodsTest {
 
