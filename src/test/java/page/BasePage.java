@@ -7,13 +7,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by oleksandr.orlov on 05.06.2017.
- */
-
-
-
-
 public class BasePage {
 
     public WebDriver webDriver;
@@ -36,7 +29,5 @@ public class BasePage {
         WebDriverWait wait = new WebDriverWait(webDriver, timeout);
         return wait.until(ExpectedConditions.visibilityOf(element));
     }
-
-
 
 }
