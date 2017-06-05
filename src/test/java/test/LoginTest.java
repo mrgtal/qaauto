@@ -49,6 +49,9 @@ public class LoginTest {
         LoginPage loginPage = new LoginPage(webDriver);
 
         LoginPage resultPage = loginPage.IncorrectLogin("IncorrectEmail", "IncorrectPassword");
+        Assert.assertTrue(resultPage.IsInvalidCredentialsDisplayed(), "Invalid credentials is not displayed");
+        Assert.assertEquals(loginPage.getErrorText(), expectedErrorMsg, "Error text is wrong");
+        Assert.assertTrue(resultPage.isLoginPageLoaded(), "Login page is not loaded");
 
     }
 

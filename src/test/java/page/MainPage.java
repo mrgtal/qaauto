@@ -10,7 +10,6 @@ public class MainPage extends BasePage {
     @FindBy(className = "settings")
     private WebElement settingsItem;
 
-
     public MainPage(WebDriver driver) {
 
         super(driver);
