@@ -12,9 +12,13 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by oleksandr.orlov on 27.05.2017.
  */
-public class LoginPage {
+
+
+
+
+public class LoginPage extends BasePage {
  //   public static
-    WebDriver webDriver;
+//    WebDriver webDriver;
 
 
 //variables
@@ -28,6 +32,8 @@ public class LoginPage {
 //    By passwordField = By.xpath("//input[@type='password']");
 //    By goButton = By.xpath("//*[@class='button' and text()='GO']");
 
+
+/*
     @FindBy(how = How.XPATH, using = "//input[@type='email']")
     WebElement emailField;
 
@@ -39,13 +45,28 @@ public class LoginPage {
 
     @FindBy(how = How.XPATH, using = "//*[@class='invalid-credentials']")
     WebElement invalidCredentials;
+*/
+
+    @FindBy(xpath = "//input[@type='email']")
+    private WebElement emailField;
+
+    @FindBy(xpath = "//input[@type='password']")
+    private WebElement passwordField;
+
+    @FindBy(xpath = "//*[@class='button' and text()='GO']")
+    private WebElement goButton;
+
+    @FindBy(className = "invalid-credentials")
+    WebElement invalidCredentials;
 
 
     public LoginPage (WebDriver driver) {
-        this.webDriver = driver;
-        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
+//        this.webDriver = driver;
+        super(driver);
+//        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+//        driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
         driver.navigate().to("https://alerts.shotspotter.biz/");
+        PageFactory.initElements(driver, this);
 
     }
 
@@ -68,24 +89,31 @@ public class LoginPage {
         emailField.sendKeys(email);
         passwordField.sendKeys(password);
         goButton.click();
-        MainPage mainPage = PageFactory.initElements(webDriver, MainPage.class);
-        return mainPage;
-
+//        MainPage mainPage = PageFactory.initElements(webDriver, MainPage.class);
+//        return mainPage;
+        return new MainPage(webDriver);
 
     }
 
 
-    public void IncorrectLogin(String email, String password) {
+    public LoginPage IncorrectLogin(String email, String password) {
         emailField.sendKeys(email);
         passwordField.sendKeys(password);
         goButton.click();
+        return this;
     }
 
     public boolean IsInvalidCredentialsDisplayed() {
         return invalidCredentials.isDisplayed();
     }
 
+    public String getErrorText() {
+        return invalidCredentials.getText();
+    }
 
+    public boolean isLoginPageLoaded() {
+        return emailField.isDisplayed();
+    }
 
 //    public void clickGoButton() {
 //        webDriver.findElement(goButton).click();
