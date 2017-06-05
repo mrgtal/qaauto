@@ -16,7 +16,7 @@ import static java.lang.Thread.sleep;
  */
 public class LoginTest {
 
-    public static WebDriver webDriver; //create variable. no value
+    WebDriver webDriver; //create variable. no value
 
     @BeforeMethod
     public void beforeMethod() throws InterruptedException {
@@ -35,7 +35,7 @@ public class LoginTest {
     @Test
     public void testLoginPositive() {
 
-
+    LoginPage loginPage = new LoginPage(webDriver);
 //if assert fails - test stops. no further asserts executed. firefox doesn't quit.
 //to avoid = use try-catch for assert
 
@@ -46,9 +46,14 @@ public class LoginTest {
         Assert.assertEquals(webDriver.getTitle(), "Shotspotter - Login", "Main page title is wrong");
 
 //email/password/go
-        LoginPage.emailField.sendKeys("denvert1@shotspotter.net");
-        LoginPage.passwordField.sendKeys("Test123!");
-        LoginPage.goButton.click();
+//        LoginPage.emailField.sendKeys("denvert1@shotspotter.net");
+//        LoginPage.passwordField.sendKeys("Test123!");
+//        LoginPage.goButton.click();
+
+        loginPage.typeEmail("denvert1@shotspotter.net");
+        loginPage.typePassword("Test123!");
+        loginPage.clickGoButton();
+
 
         try {
             sleep(5000);
