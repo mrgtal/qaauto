@@ -25,7 +25,6 @@ public class LoginPage extends BasePage {
 
         driver.navigate().to("https://alerts.shotspotter.biz/");
         PageFactory.initElements(driver, this);
-
     }
 
     public MainPage LoginAs (String email, String password) {
@@ -38,24 +37,30 @@ public class LoginPage extends BasePage {
 
     }
 
-    public LoginPage IncorrectLogin(String email, String password) {
+    public <T> T loginAsReturnToLoginPage(String email, String password, Class <T> expectedPage) {
+
         emailField.sendKeys(email);
         passwordField.sendKeys(password);
         goButton.click();
-        return this;
+
+        if (expectedPage == LoginPage.class) {
+            return (T) this;
+        } else {
+            return PageFactory.initElements(webDriver, expectedPage);
+        }
+
     }
 
     public boolean IsInvalidCredentialsDisplayed() {
-        return invalidCredentials.isDisplayed();
+        return waitUntilElementDisplayed(invalidCredentials, 15).isDisplayed();
     }
 
     public String getErrorText() {
-        return invalidCredentials.getText();
+        return waitUntilElementDisplayed(invalidCredentials, 15).getText();
     }
 
     public boolean isLoginPageLoaded() {
-        return emailField.isDisplayed();
+        return waitUntilElementDisplayed(emailField, 15).isDisplayed();
     }
-
 
 }

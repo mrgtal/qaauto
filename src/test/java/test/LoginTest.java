@@ -7,17 +7,14 @@ import org.testng.annotations.*;
 import page.LoginPage;
 import page.MainPage;
 
-import static java.lang.Thread.sleep;
-
 public class LoginTest {
 
     WebDriver webDriver;
 
     @BeforeMethod
-    public void beforeMethod() throws InterruptedException {
+    public void beforeMethod() {
+
        webDriver = new FirefoxDriver(); //set value to variable
-       webDriver.navigate().to( "https://alerts.shotspotter.biz/");
-       sleep(9000);
     }
 
     @AfterMethod
@@ -31,10 +28,11 @@ public class LoginTest {
 
         LoginPage loginPage = new LoginPage(webDriver);
 
+        Assert.assertTrue(loginPage.isLoginPageLoaded(), "Login page is not loaded");
         Assert.assertEquals(loginPage.getPageURL(), "https://alerts.shotspotter.biz/", ("Wrong url before login"));
         Assert.assertEquals(loginPage.getPageTitle(), "Shotspotter - Login", "Main page title is wrong");
 
-        MainPage mainPage = loginPage.LoginAs("denvert1@shotspotter.net","Test123!");
+        MainPage mainPage = loginPage.loginAsReturnToLoginPage("denvert1@shotspotter.net","Test123!", MainPage.class);
 
         Assert.assertTrue(mainPage.isPageLoaded(), "settings icon is not displayed");
         Assert.assertTrue(mainPage.getPageURL().contains("https://alerts.shotspotter.biz/main"),"Wrong url after Login");
@@ -48,7 +46,10 @@ public class LoginTest {
 
         LoginPage loginPage = new LoginPage(webDriver);
 
-        LoginPage resultPage = loginPage.IncorrectLogin("IncorrectEmail", "IncorrectPassword");
+        Assert.assertTrue(loginPage.isLoginPageLoaded(), "Login page is not loaded");
+
+        LoginPage resultPage = loginPage.loginAsReturnToLoginPage("IncorrectEmail", "IncorrectPassword", LoginPage.class);
+
         Assert.assertTrue(resultPage.IsInvalidCredentialsDisplayed(), "Invalid credentials is not displayed");
         Assert.assertEquals(loginPage.getErrorText(), expectedErrorMsg, "Error text is wrong");
         Assert.assertTrue(resultPage.isLoginPageLoaded(), "Login page is not loaded");
