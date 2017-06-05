@@ -17,10 +17,7 @@ public class LoginPage {
  //   public static WebElement passwordField =  webDriver.findElement(By.xpath("//input[@type='password']"));
   //  public static WebElement goButton = webDriver.findElement(By.xpath("//*[@class='button' and text()='GO']"));
 
-//method. create. 2 params.
- //   public void LoginAs {
 
-//    }
 
     By emailField = By.xpath("//input[@type='email']");
     By passwordField = By.xpath("//input[@type='password']");
@@ -38,6 +35,15 @@ public class LoginPage {
     public void typePassword(String password) {
         webDriver.findElement(passwordField).sendKeys(password);
     }
+
+
+//method. create. 2 params.
+    public void LoginAs (String email, String password) {
+        webDriver.findElement(emailField).sendKeys(email);
+        webDriver.findElement(passwordField).sendKeys(password);
+    }
+
+
 
     public void clickGoButton() {
         webDriver.findElement(goButton).click();

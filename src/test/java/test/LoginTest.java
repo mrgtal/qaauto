@@ -50,8 +50,10 @@ public class LoginTest {
 //        LoginPage.passwordField.sendKeys("Test123!");
 //        LoginPage.goButton.click();
 
-        loginPage.typeEmail("denvert1@shotspotter.net");
-        loginPage.typePassword("Test123!");
+//        loginPage.typeEmail("denvert1@shotspotter.net");
+//        loginPage.typePassword("Test123!");
+        loginPage.LoginAs("denvert1@shotspotter.net","Test123!");
+
         loginPage.clickGoButton();
 
 
