@@ -1,13 +1,12 @@
 package test;
 
-import net.sourceforge.htmlunit.corejs.javascript.tools.shell.Global;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import page.LoginPage;
+import page.MainPage;
 
 import static java.lang.Thread.sleep;
 
@@ -35,7 +34,7 @@ public class LoginTest {
     @Test
     public void testLoginPositive() {
 
-    LoginPage loginPage = new LoginPage(webDriver);
+        LoginPage loginPage = PageFactory.initElements(webDriver, LoginPage.class);
 //if assert fails - test stops. no further asserts executed. firefox doesn't quit.
 //to avoid = use try-catch for assert
 
@@ -52,11 +51,11 @@ public class LoginTest {
 
 //        loginPage.typeEmail("denvert1@shotspotter.net");
 //        loginPage.typePassword("Test123!");
-        loginPage.LoginAs("denvert1@shotspotter.net","Test123!");
+//        loginPage.LoginAs("denvert1@shotspotter.net","Test123!");
 
-        loginPage.clickGoButton();
+//        loginPage.clickGoButton();
 
-
+/*
         try {
             sleep(5000);
         } catch (InterruptedException e) {
@@ -82,6 +81,40 @@ public class LoginTest {
         }
 
 //        webDriver.quit();
+*/
+
+        MainPage mainPage = loginPage.LoginAs("denvert1@shotspotter.net","Test123!");
+
+        Assert.assertTrue(mainPage.isPageLoaded(), "settings icon is not displayed");
+        Assert.assertTrue(webDriver.getCurrentUrl().contains("https://alerts.shotspotter.biz/main"),"Wrong url after Login");
+
 
     }
+
+    @Test
+    public void NegativeLoginTest1() {
+
+/*
+        String expectedErrorMsg = "The provided credentials are not correct.";
+
+        LoginPage loginPage = new LoginPage(webDriver);
+
+        LoginPage resultPage = loginPage.IncorrectLogin("IncorrectEmail", "IncorrectPassword");
+        Assert.assertTrue(resultPage.IsInvalidCredentialsDisplayed(), "Invalid credentials is not displayed");
+        Assert.assertEquals(loginPage.getErrorText(), expectedErrorMsg, "Error text is wrong");
+        Assert.assertTrue(resultPage.isLoginPageLoaded(), "Login page is not loaded");
+*/
+        LoginPage loginPage = PageFactory.initElements(webDriver, LoginPage.class);
+
+        loginPage.IncorrectLogin("IncorrectEmail", "IncorrectPassword");
+
+        Assert.assertTrue(loginPage.IsInvalidCredentialsDisplayed());
+
+
+    }
+
+
+
+
+
 }
