@@ -3,6 +3,7 @@ package page;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class MainPage extends BasePage {
 
@@ -12,7 +13,8 @@ public class MainPage extends BasePage {
     public MainPage(WebDriver driver) {
 
         super(driver);
-
+ //       PageFactory.initElements(driver, this);
+      //  waitUntilElementDisplayed(goButton, 10);
     }
 
     public boolean isPageLoaded() {

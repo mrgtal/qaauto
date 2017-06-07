@@ -1,11 +1,10 @@
 package page;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.concurrent.TimeUnit;
 
 public class BasePage {
 
@@ -17,12 +16,29 @@ public class BasePage {
     }
 
     public String getPageURL() {
+
         return webDriver.getCurrentUrl();
     }
 
     public String getPageTitle() {
+
         return webDriver.getTitle();
     }
+
+//method. check if element exist
+    public Boolean isElementExist(WebElement element) {
+
+       try {
+           element.isDisplayed();
+
+       }
+       catch (NoSuchElementException e) {
+           return false;
+       }
+       return true;
+    }
+
+
 
     public WebElement waitUntilElementDisplayed(WebElement element, int timeout) {
         WebDriverWait wait = new WebDriverWait(webDriver, timeout);

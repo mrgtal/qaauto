@@ -32,7 +32,8 @@ public class LoginTest {
         Assert.assertEquals(loginPage.getPageURL(), "https://alerts.shotspotter.biz/", ("Wrong url before login"));
         Assert.assertEquals(loginPage.getPageTitle(), "Shotspotter - Login", "Main page title is wrong");
 
-        MainPage mainPage = loginPage.loginAsReturnToLoginPage("denvert1@shotspotter.net","Test123!", MainPage.class);
+//        MainPage mainPage = loginPage.loginAsReturnToLoginPage("denvert1@shotspotter.net","Test123!", MainPage.class);
+        MainPage mainPage = loginPage.loginAsReturnToLoginPage("denvert1@shotspotter.net","Test123!");
 
         Assert.assertTrue(mainPage.isPageLoaded(), "settings icon is not displayed");
         Assert.assertTrue(mainPage.getPageURL().contains("https://alerts.shotspotter.biz/main"),"Wrong url after Login");
@@ -48,7 +49,8 @@ public class LoginTest {
 
         Assert.assertTrue(loginPage.isLoginPageLoaded(), "Login page is not loaded");
 
-        LoginPage resultPage = loginPage.loginAsReturnToLoginPage("IncorrectEmail", "IncorrectPassword", LoginPage.class);
+//        LoginPage resultPage = loginPage.loginAsReturnToLoginPage("IncorrectEmail", "IncorrectPassword", LoginPage.class);
+        LoginPage resultPage = loginPage.loginAsReturnToLoginPage("IncorrectEmail", "IncorrectPassword");
 
         Assert.assertTrue(resultPage.IsInvalidCredentialsDisplayed(), "Invalid credentials is not displayed");
         Assert.assertEquals(loginPage.getErrorText(), expectedErrorMsg, "Error text is wrong");
