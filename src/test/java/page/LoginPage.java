@@ -65,8 +65,12 @@ public class LoginPage extends BasePage {
         goButton.click();
 //        sleep(5000);
         if (isElementExist(goButton)) {
+            System.out.println("if-true");
+
             return (T) PageFactory.initElements(webDriver, LoginPage.class);
         } else {
+            System.out.println("if-false");
+
             return (T) PageFactory.initElements(webDriver, MainPage.class);
         }
 //        return PageFactory.initElements(webDriver, expectedPage);
@@ -80,10 +84,12 @@ public class LoginPage extends BasePage {
     }
 
     public String getErrorText() {
+
         return waitUntilElementDisplayed(invalidCredentials, 15).getText();
     }
 
     public boolean isLoginPageLoaded() {
+
         return waitUntilElementDisplayed(emailField, 15).isDisplayed();
     }
 

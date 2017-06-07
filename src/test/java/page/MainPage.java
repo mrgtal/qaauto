@@ -13,11 +13,12 @@ public class MainPage extends BasePage {
     public MainPage(WebDriver driver) {
 
         super(driver);
- //       PageFactory.initElements(driver, this);
-      //  waitUntilElementDisplayed(goButton, 10);
+        PageFactory.initElements(driver, this);
+//        waitUntilElementDisplayed(goButton, 10);
     }
 
     public boolean isPageLoaded() {
+
         return waitUntilElementDisplayed(settingsItem, 15).isDisplayed();
     }
 

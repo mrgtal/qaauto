@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static java.lang.Thread.sleep;
+
 public class BasePage {
 
     public WebDriver webDriver;
@@ -27,8 +29,12 @@ public class BasePage {
 
 //method. check if element exist
     public Boolean isElementExist(WebElement element) {
-
-       try {
+        try {
+            sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
            element.isDisplayed();
 
        }
