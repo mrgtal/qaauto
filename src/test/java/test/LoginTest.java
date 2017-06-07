@@ -15,12 +15,13 @@ public class LoginTest {
     public void beforeMethod() {
 
        webDriver = new FirefoxDriver(); //set value to variable
+        webDriver.navigate().to("https://alerts.shotspotter.biz/");
     }
 
     @AfterMethod
     public void afterMethod() {
 
- //       webDriver.quit();
+        webDriver.quit();
     }
 
     @Test
@@ -52,8 +53,8 @@ public class LoginTest {
 //        LoginPage resultPage = loginPage.loginAsReturnToLoginPage("IncorrectEmail", "IncorrectPassword", LoginPage.class);
         LoginPage resultPage = loginPage.loginAsReturnToLoginPage("IncorrectEmail", "IncorrectPassword");
 
-//        Assert.assertTrue(resultPage.IsInvalidCredentialsDisplayed(), "Invalid credentials is not displayed");
-//        Assert.assertEquals(resultPage.getErrorText(), expectedErrorMsg, "Error text is wrong");
+        Assert.assertTrue(resultPage.IsInvalidCredentialsDisplayed(), "Invalid credentials is not displayed");
+        Assert.assertEquals(resultPage.getErrorText(), expectedErrorMsg, "Error text is wrong");
         Assert.assertTrue(resultPage.isLoginPageLoaded(), "Login page is not loaded");
 
     }

@@ -29,11 +29,14 @@ public class BasePage {
 
 //method. check if element exist
     public Boolean isElementExist(WebElement element) {
+
         try {
             sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+
         try {
            element.isDisplayed();
 

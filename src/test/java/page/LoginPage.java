@@ -25,7 +25,7 @@ public class LoginPage extends BasePage {
 
         super(driver);
 
-        driver.navigate().to("https://alerts.shotspotter.biz/");
+//        driver.navigate().to("https://alerts.shotspotter.biz/");
 
         PageFactory.initElements(driver, this);
         waitUntilElementDisplayed(goButton, 10);
