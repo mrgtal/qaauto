@@ -5,8 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import static java.lang.Thread.sleep;
-
 public class LoginPage extends BasePage {
 
     @FindBy(xpath = "//input[@type='email']")
@@ -25,59 +23,23 @@ public class LoginPage extends BasePage {
 
         super(driver);
 
-//        driver.navigate().to("https://alerts.shotspotter.biz/");
-
         PageFactory.initElements(driver, this);
         waitUntilElementDisplayed(goButton, 10);
     }
-
-/*
-    public MainPage LoginAs (String email, String password) {
-
-        emailField.sendKeys(email);
-        passwordField.sendKeys(password);
-        goButton.click();
-
-        return new MainPage(webDriver);
-
-    }
-*/
-
- /*
-    public <T> T loginAsReturnToLoginPage(String email, String password, Class <T> expectedPage) {
-
-        emailField.sendKeys(email);
-        passwordField.sendKeys(password);
-        goButton.click();
-
-        if (expectedPage == LoginPage.class) {
-            return (T) this;
-        } else {
-            return PageFactory.initElements(webDriver, expectedPage);
-        }
-
-    }
-*/
 
     public <T> T loginAsReturnToLoginPage(String user, String pw){
         emailField.sendKeys(user);
         passwordField.sendKeys(pw);
         goButton.click();
-//        sleep(5000);
-        if (isElementExist(goButton)) {
-            System.out.println("if-true");
+
+        if (isElementDisplayed(goButton, 3)) {
 
             return (T) PageFactory.initElements(webDriver, LoginPage.class);
         } else {
-            System.out.println("if-false");
 
             return (T) PageFactory.initElements(webDriver, MainPage.class);
         }
-//        return PageFactory.initElements(webDriver, expectedPage);
     }
-
-
-
 
     public boolean IsInvalidCredentialsDisplayed() {
         return waitUntilElementDisplayed(invalidCredentials, 15).isDisplayed();

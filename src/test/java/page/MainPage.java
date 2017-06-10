@@ -14,7 +14,7 @@ public class MainPage extends BasePage {
 
         super(driver);
         PageFactory.initElements(driver, this);
-//        waitUntilElementDisplayed(goButton, 10);
+
     }
 
     public boolean isPageLoaded() {
