@@ -41,4 +41,11 @@ public class BasePage {
         return true;
     }
 
+//is not useful for LogoutTest "Logout" element
+    public WebElement waitUntilElementClicable(WebElement element, int timeout) {
+        WebDriverWait wait = new WebDriverWait(webDriver, timeout);
+        return wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+
 }
