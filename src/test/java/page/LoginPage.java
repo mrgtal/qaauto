@@ -22,7 +22,6 @@ public class LoginPage extends BasePage {
     public LoginPage (WebDriver driver) {
 
         super(driver);
-
         PageFactory.initElements(driver, this);
         waitUntilElementDisplayed(goButton, 10);
     }
