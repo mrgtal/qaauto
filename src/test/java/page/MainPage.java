@@ -14,8 +14,9 @@ public class MainPage extends BasePage {
 
 //    @FindBy(xpath = "//settings-drop-down//li[text()='Logout']")
 
-//    @FindBy(xpath = "//*[@class='settings isOpen']")
-    @FindBy(className = "settings isOpen")
+    @FindBy(xpath = "//*[@class='settings isOpen']")
+//    @FindBy(className = "settings isOpen")
+//    @FindBy(className = "drop-down-menu animated short fade-in-down")
     private WebElement settingsOpen;
 
     @FindBy(xpath = "//settings-drop-down//li[text()='Logout']")
@@ -41,8 +42,9 @@ public class MainPage extends BasePage {
 System.out.println("settings-wait");
         settingsItem.click();
 System.out.println("settings-click");
-        waitUntilElementDisplayed(settingsOpen, 3);
+ //       waitUntilElementDisplayed(settingsOpen, 5);
 System.out.println("settings-open");
+
 
 /*
 
@@ -51,8 +53,9 @@ System.out.println("settings-open");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
 */
+
+        waitUntilElementDisplayed(settingsOpen, 5);
 
 //        waitUntilElementDisplayed(logoutItem, 5);
         waitUntilElementClicable(logoutItem, 5);

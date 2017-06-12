@@ -77,9 +77,9 @@ public class LoginTest {
 
         loginPage = mainPage.logOut();
 
- //       Assert.assertTrue(loginPage.isLoginPageLoaded(), "Login page is not loaded");
- //       Assert.assertEquals(loginPage.getPageURL(), "https://alerts.shotspotter.biz/", ("Wrong url before login"));
- //       Assert.assertEquals(loginPage.getPageTitle(), "Shotspotter - Login", "Main page title is wrong");
+        Assert.assertTrue(loginPage.isLoginPageLoaded(), "Login page is not loaded");
+        Assert.assertEquals(loginPage.getPageURL(), "https://alerts.shotspotter.biz/", ("Wrong url before login"));
+        Assert.assertEquals(loginPage.getPageTitle(), "Shotspotter - Login", "Main page title is wrong");
 
     }
 
