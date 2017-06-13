@@ -11,8 +11,6 @@ public class MainPage extends BasePage {
     @FindBy(className = "settings")
     private WebElement settingsItem;
 
-//    @FindBy(xpath = "//*[@class='settings isOpen']")
-//    @FindBy(className = "settings isOpen")
     @FindBy(css = ".settings.isOpen")
     private WebElement settingsOpen;
 
@@ -41,11 +39,6 @@ public class MainPage extends BasePage {
         waitUntilElementClicable(logoutItem, 5);
 
         logoutItem.click();
-
-/*
-        JavascriptExecutor executor = (JavascriptExecutor)webDriver;
-        executor.executeScript("arguments[0].click();", logoutElement);
-*/
 
         return PageFactory.initElements(webDriver, LoginPage.class);
 
