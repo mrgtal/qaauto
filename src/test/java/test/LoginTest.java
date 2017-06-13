@@ -72,7 +72,7 @@ public class LoginTest {
 
         MainPage mainPage = loginPage.loginAsReturnToLoginPage(username, password);
 
- //       Assert.assertTrue(mainPage.isPageLoaded(), "settings icon is not displayed");
+        Assert.assertTrue(mainPage.isPageLoaded(), "settings icon is not displayed");
  //       Assert.assertTrue(mainPage.getPageURL().contains("https://alerts.shotspotter.biz/main"),"Wrong url after Login");
 
         loginPage = mainPage.logOut();

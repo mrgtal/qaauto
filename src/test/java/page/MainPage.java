@@ -12,10 +12,9 @@ public class MainPage extends BasePage {
     @FindBy(className = "settings")
     private WebElement settingsItem;
 
-//    @FindBy(xpath = "//settings-drop-down//li[text()='Logout']")
-
-    @FindBy(xpath = "//*[@class='settings isOpen']")
+//    @FindBy(xpath = "//*[@class='settings isOpen']")
 //    @FindBy(className = "settings isOpen")
+    @FindBy(css = ".settings.isOpen")
 //    @FindBy(className = "drop-down-menu animated short fade-in-down")
     private WebElement settingsOpen;
 
@@ -38,12 +37,12 @@ public class MainPage extends BasePage {
 
 
     public LoginPage logOut () {
-        waitUntilElementDisplayed(settingsItem, 3);
-System.out.println("settings-wait");
+ //       waitUntilElementDisplayed(settingsItem, 3);
+//System.out.println("settings-wait");
         settingsItem.click();
-System.out.println("settings-click");
+//System.out.println("settings-click");
  //       waitUntilElementDisplayed(settingsOpen, 5);
-System.out.println("settings-open");
+//System.out.println("settings-open");
 
 
 /*
@@ -57,17 +56,16 @@ System.out.println("settings-open");
 
         waitUntilElementDisplayed(settingsOpen, 5);
 
-//        waitUntilElementDisplayed(logoutItem, 5);
-        waitUntilElementClicable(logoutItem, 5);
+        waitUntilElementDisplayed(logoutItem, 5);
+//        waitUntilElementClicable(logoutItem, 5);
 
-System.out.println("logout-wait");
+//System.out.println("logout-wait");
 
         logoutItem.click();
-System.out.println("logout-click");
+//System.out.println("logout-click");
 
         return PageFactory.initElements(webDriver, LoginPage.class);
 
     }
-
 
 }
