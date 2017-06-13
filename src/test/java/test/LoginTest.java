@@ -62,8 +62,6 @@ public class LoginTest {
     @Test
     public void TestLogout() {
 
-   //     testLoginPositive();
-
         LoginPage loginPage = new LoginPage(webDriver);
 
  //       Assert.assertTrue(loginPage.isLoginPageLoaded(), "Login page is not loaded");

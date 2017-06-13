@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import static java.lang.Thread.sleep;
 
 public class MainPage extends BasePage {
 
@@ -15,11 +14,9 @@ public class MainPage extends BasePage {
 //    @FindBy(xpath = "//*[@class='settings isOpen']")
 //    @FindBy(className = "settings isOpen")
     @FindBy(css = ".settings.isOpen")
-//    @FindBy(className = "drop-down-menu animated short fade-in-down")
     private WebElement settingsOpen;
 
     @FindBy(xpath = "//settings-drop-down//li[text()='Logout']")
- //   @FindBy(xpath = "//settings-drop-down//li[text()='Logout'][@style='opacity: 1;']")
     private WebElement logoutItem;
 
     public MainPage(WebDriver driver) {
@@ -34,35 +31,21 @@ public class MainPage extends BasePage {
         return waitUntilElementDisplayed(settingsItem, 15).isDisplayed();
     }
 
-
-
     public LoginPage logOut () {
- //       waitUntilElementDisplayed(settingsItem, 3);
-//System.out.println("settings-wait");
+
         settingsItem.click();
-//System.out.println("settings-click");
- //       waitUntilElementDisplayed(settingsOpen, 5);
-//System.out.println("settings-open");
-
-
-/*
-
-        try {
-            sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-*/
 
         waitUntilElementDisplayed(settingsOpen, 5);
 
         waitUntilElementDisplayed(logoutItem, 5);
-//        waitUntilElementClicable(logoutItem, 5);
-
-//System.out.println("logout-wait");
+        waitUntilElementClicable(logoutItem, 5);
 
         logoutItem.click();
-//System.out.println("logout-click");
+
+/*
+        JavascriptExecutor executor = (JavascriptExecutor)webDriver;
+        executor.executeScript("arguments[0].click();", logoutElement);
+*/
 
         return PageFactory.initElements(webDriver, LoginPage.class);
 
