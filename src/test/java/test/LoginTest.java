@@ -9,10 +9,25 @@ import page.MainPage;
 
 public class LoginTest {
 
+    /**
+     * WebDriver variable
+     */
     WebDriver webDriver;
-    String username = "sst.tau@gmail.com";
-    String password = "P@ssword123";
 
+    /**
+     * username variable for login
+     */
+    String username = "sst.tau@gmail.com";
+
+    /**
+     * password variable for login
+     */    String password = "P@ssword123";
+
+    /**
+     * Method to execute before any Test
+     * creates firefox webdriver
+     * opens loginpage URL
+     */
     @BeforeMethod
     public void beforeMethod() {
 
@@ -20,12 +35,24 @@ public class LoginTest {
         webDriver.navigate().to("https://alerts.shotspotter.biz/");
     }
 
+    /**
+     * Method to execute after any Test
+     * Does close web browser
+     */
     @AfterMethod
     public void afterMethod() {
 
         webDriver.quit();
     }
 
+    /**
+     * Positive Login Test
+     *
+     * Initialize LoginPage
+     * Checks if LoginPage loaded, if correct URL, if correct Page Title
+     * Logins using correct credentials provided
+     * Checks if MainPage loaded, if URL changed
+     */
     @Test
     public void testLoginPositive() {
 
@@ -42,6 +69,14 @@ public class LoginTest {
 
     }
 
+    /**
+     * Negative Login Test
+     *
+     * Initialize LoginPage
+     * Checks if LoginPage loaded
+     * Logins using incorrect credentials provided
+     * Checks if correct error message displayed, if login was not performed
+     */
     @Test
     public void TestLoginNegative() {
 
@@ -59,6 +94,15 @@ public class LoginTest {
 
     }
 
+    /**
+     *  Positive Logout Test
+     *
+     *  Initialize LoginPage
+     *  Login with provided correct credentials
+     *  Checks if MainPage loaded
+     *  Logout from MainPage
+     *  Checks if LoginPage loaded, if URL changed, if PageTitle changed
+     */
     @Test
     public void TestLogout() {
 
@@ -75,6 +119,5 @@ public class LoginTest {
         Assert.assertEquals(loginPage.getPageTitle(), "Shotspotter - Login", "Main page title is wrong");
 
     }
-
 
 }

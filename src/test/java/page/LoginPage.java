@@ -5,6 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+/**
+ * Main Page class. Inherited from BasePage class.
+ */
 public class LoginPage extends BasePage {
 
     @FindBy(xpath = "//input[@type='email']")
@@ -19,6 +22,12 @@ public class LoginPage extends BasePage {
     @FindBy(className = "invalid-credentials")
     WebElement invalidCredentials;
 
+    /**
+     * LoginPage class constructor.
+     * Initialize LoginPage WebElements
+     * waits for WebElement "goButton" to be displayed
+     * @param driver WebDriver object
+     */
     public LoginPage (WebDriver driver) {
 
         super(driver);
@@ -26,6 +35,15 @@ public class LoginPage extends BasePage {
         waitUntilElementDisplayed(goButton, 10);
     }
 
+    /**
+     * Generic method.
+     * Depends on parameters provided method either returns MainPage or LoginPage
+     *
+     * @param user String username
+     * @param pw String password
+     * @param <T>
+     * @return LoginPage or MainPage
+     */
     public <T> T loginAsReturnToLoginPage(String user, String pw){
         emailField.sendKeys(user);
         passwordField.sendKeys(pw);
@@ -40,15 +58,31 @@ public class LoginPage extends BasePage {
         }
     }
 
+    /**
+     * Method checks if invalid credentials error message displayed
+     * using waitUntilElementDisplayed with specific parameters
+     * @return true/false
+     */
     public boolean IsInvalidCredentialsDisplayed() {
         return waitUntilElementDisplayed(invalidCredentials, 15).isDisplayed();
     }
 
+    /**
+     * Method waits for error message element to be displayed and gets message text
+     *
+     * @return String error message text
+     */
     public String getErrorText() {
 
         return waitUntilElementDisplayed(invalidCredentials, 15).getText();
     }
 
+    /**
+     * Method checks if login page is loaded and specific WebElement "emailField" is Displayed.
+     * Uses waitUntilElementDisplayed method with specific parameters.
+     *
+     * @return true/false
+     */
     public boolean isLoginPageLoaded() {
 
         return waitUntilElementDisplayed(emailField, 15).isDisplayed();
