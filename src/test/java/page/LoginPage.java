@@ -26,6 +26,7 @@ public class LoginPage extends BasePage {
      * LoginPage class constructor.
      * Initialize LoginPage WebElements
      * waits for WebElement "goButton" to be displayed
+     *
      * @param driver WebDriver object
      */
     public LoginPage (WebDriver driver) {
@@ -41,7 +42,7 @@ public class LoginPage extends BasePage {
      *
      * @param user String username
      * @param pw String password
-     * @param <T>
+     * @param <T> generic. determines returned type
      * @return LoginPage or MainPage
      */
     public <T> T loginAsReturnToLoginPage(String user, String pw){
@@ -61,6 +62,7 @@ public class LoginPage extends BasePage {
     /**
      * Method checks if invalid credentials error message displayed
      * using waitUntilElementDisplayed with specific parameters
+     *
      * @return true/false
      */
     public boolean IsInvalidCredentialsDisplayed() {

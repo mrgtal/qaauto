@@ -12,38 +12,36 @@ public class LoginTest {
     /**
      * WebDriver variable
      */
-    WebDriver webDriver;
 
-    /**
-     * username variable for login
-     */
-    String username = "sst.tau@gmail.com";
+    public WebDriver webDriver;
 
-    /**
-     * password variable for login
-     */    String password = "P@ssword123";
-
-    /**
-     * Method to execute before any Test
-     * creates firefox webdriver
-     * opens loginpage URL
-     */
     @BeforeMethod
     public void beforeMethod() {
 
-       webDriver = new FirefoxDriver();
+        webDriver = new FirefoxDriver();
         webDriver.navigate().to("https://alerts.shotspotter.biz/");
     }
 
-    /**
-     * Method to execute after any Test
-     * Does close web browser
-     */
     @AfterMethod
     public void afterMethod() {
 
         webDriver.quit();
     }
+    /**
+     * username variable for login
+     */
+    String username = "sst.tau@gmail.com";
+// denvert1@shotspotterr.net
+    /**
+     * password variable for login
+     */    String password = "P@ssword123";
+// Test123!
+    /**
+     * Method to execute before any Test
+     * creates firefox webdriver
+     * opens loginpage URL
+     */
+
 
     /**
      * Positive Login Test
@@ -119,5 +117,6 @@ public class LoginTest {
         Assert.assertEquals(loginPage.getPageTitle(), "Shotspotter - Login", "Main page title is wrong");
 
     }
+
 
 }
