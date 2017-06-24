@@ -9,10 +9,6 @@ import page.MainPage;
 
 public class LoginTest {
 
-    /**
-     * WebDriver variable
-     */
-
     public WebDriver webDriver;
 
     @BeforeMethod
@@ -31,11 +27,11 @@ public class LoginTest {
      * username variable for login
      */
     String username = "sst.tau@gmail.com";
-// denvert1@shotspotterr.net
+
     /**
      * password variable for login
      */    String password = "P@ssword123";
-// Test123!
+
     /**
      * Method to execute before any Test
      * creates firefox webdriver

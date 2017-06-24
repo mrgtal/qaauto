@@ -9,9 +9,10 @@ import org.testng.annotations.Test;
 import page.LoginPage;
 import page.MainPage;
 
+
 public class MainPageTest  {
 
-    public String username = "denvert1@shotspotterr.net";
+    public String username = "denvert1@shotspotter.net";
     public String password = "Test123!";
 
     public WebDriver webDriver;
@@ -36,6 +37,10 @@ public class MainPageTest  {
         MainPage mainPage = loginPage.loginAsReturnToLoginPage(username, password);
 
         mainPage.swithTimeFramePeriod(7);
+
+        boolean resultChanged = mainPage.waitUntilResultCounterChanged(5);
+        Assert.assertEquals(resultChanged, true, "Result count was not changed after Period changed");
+
         int resultsCount = mainPage.getResultCount();
         int incidentCardsCount = mainPage.getIncidentCardsCount();
         Assert.assertEquals(resultsCount, incidentCardsCount, "Results count does not match Incident Cards count");

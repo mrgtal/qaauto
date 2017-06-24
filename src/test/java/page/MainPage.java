@@ -1,5 +1,6 @@
 package page;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
+import static java.lang.Thread.sleep;
 
 /**
  * Main Page class. Inherited from BasePage class.
@@ -25,34 +27,16 @@ public class MainPage extends BasePage {
     @FindBy(xpath = "//filter-menu/div[@class='selected-option']")
     private WebElement incidentsTimeFrameSwitch;
 
-
-// redesign and parametrize to have only 1 usable locator with variable
-    @FindBy(xpath = "//filter-menu/div[@class='available-options']//span[@class='time-increment' and text()='24']")
-    private WebElement timeFrameSwitch24h;
-
-    @FindBy(xpath = "//filter-menu/div[@class='available-options']//span[@class='time-increment' and text()='3']")
-    private WebElement timeFrameSwitch3d;
-
-    @FindBy(xpath = "//filter-menu/div[@class='available-options']//span[@class='time-increment' and text()='7']")
-    private WebElement timeFrameSwitch7d;
-//similar locators
-
-
     @FindBy(xpath = "//*[@class='result-count']")
     private WebElement resultsCount;
 
     @FindBy(xpath = "//div[text()='List']")
     private WebElement listButton;
 
-
     // //div[@class='incidents']//incident-card
     // //incident-list//incident-card
-
     @FindBy(xpath = "//incident-list//incident-card")
     private List<WebElement> incidentsCardsList;
-
-
-
 
     /**
      * MainPage class constructor.
@@ -68,18 +52,9 @@ public class MainPage extends BasePage {
 
     }
 
-/*    String string = "004-034556";
-    String[] parts = string.split("-");
-    String part1 = parts[0]; // 004
-    String part2 = parts[1]; // 034556
-*/
-
     public int getResultCount() {
-        return Integer.parseInt(resultsCount.getText().replace(" Results", ""));
+        return Integer.parseInt(resultsCount.getText().toUpperCase().replace(" RESULTS", ""));
     }
-
-
-
 
     /**
      * Method checks if main page is loaded and specific WebElement "settingsItem" is Displayed.
@@ -113,5 +88,49 @@ public class MainPage extends BasePage {
         return PageFactory.initElements(webDriver, LoginPage.class);
 
     }
+
+    public void swithTimeFramePeriod(int timeFramePeriod) {
+
+        incidentsTimeFrameSwitch.click();
+        WebElement timeFrameSwitch = prepareWebElementWithDynamicXpath(timeFramePeriod);
+        waitUntilElementDisplayed(timeFrameSwitch, 5);
+        timeFrameSwitch.click();
+
+    }
+
+    public int getIncidentCardsCount() {
+        return incidentsCardsList.size();
+    }
+
+    public WebElement prepareWebElementWithDynamicXpath(int timeFramePeriod) {
+        String requiredXpath = "//filter-menu/div[@class='available-options']//span[@class='time-increment' and text()='REPLACEVALUE']";
+
+        return webDriver.findElement(By.xpath(requiredXpath.replace("REPLACEVALUE", String.valueOf(timeFramePeriod))));
+
+    }
+
+    public boolean waitUntilResultCounterChanged(int timeout) {
+        int resultsCountValueBefore = getResultCount();
+        int resultsCountValueAfter = getResultCount();
+        int countdown = 0;
+
+        while (resultsCountValueAfter == resultsCountValueBefore) {
+
+            try {
+                sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            resultsCountValueAfter = getResultCount();
+            countdown++;
+            if(countdown==timeout) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 
 }
