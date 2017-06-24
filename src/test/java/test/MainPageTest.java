@@ -38,7 +38,7 @@ public class MainPageTest  {
 
         mainPage.swithTimeFramePeriod(7);
 
-        boolean resultChanged = mainPage.waitUntilResultCounterChanged(5);
+        boolean resultChanged = mainPage.waitUntilResultCounterChanged(7);
         Assert.assertEquals(resultChanged, true, "Result count was not changed after Period changed");
 
         int resultsCount = mainPage.getResultCount();

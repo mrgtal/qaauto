@@ -91,9 +91,11 @@ public class MainPage extends BasePage {
 
     public void swithTimeFramePeriod(int timeFramePeriod) {
 
+        waitUntilElementDisplayed(incidentsTimeFrameSwitch, 5);
         incidentsTimeFrameSwitch.click();
         WebElement timeFrameSwitch = prepareWebElementWithDynamicXpath(timeFramePeriod);
         waitUntilElementDisplayed(timeFrameSwitch, 5);
+        waitUntilElementClicable(timeFrameSwitch, 5);
         timeFrameSwitch.click();
 
     }
