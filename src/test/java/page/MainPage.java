@@ -104,11 +104,14 @@ public class MainPage extends BasePage {
         return incidentsCardsList.size();
     }
 
-    public WebElement prepareWebElementWithDynamicXpath(int timeFramePeriod) {
-        String requiredXpath = "//filter-menu/div[@class='available-options']//span[@class='time-increment' and text()='REPLACEVALUE']";
+    private WebElement prepareWebElementWithDynamicXpath(int timeFramePeriod) {
+ //       String requiredXpath = "//filter-menu/div[@class='available-options']//span[@class='time-increment' and text()='REPLACEVALUE']";
+//        return webDriver.findElement(By.xpath(requiredXpath.replace("REPLACEVALUE", String.valueOf(timeFramePeriod))));
 
-        return webDriver.findElement(By.xpath(requiredXpath.replace("REPLACEVALUE", String.valueOf(timeFramePeriod))));
+//        return webDriver.findElement(By.xpath("//filter-menu/div[@class='available-options']//span[@class='time-increment' and text()='"+timeFramePeriod+"']"));
 
+        return webDriver.findElement(By.xpath(
+                String.format("//filter-menu/div[@class='available-options']//span[@class='time-increment' and text()='%d']", timeFramePeriod)));
     }
 
     public boolean waitUntilResultCounterChanged(int timeout) {
@@ -133,6 +136,22 @@ public class MainPage extends BasePage {
         return true;
     }
 
+    public void waitResultsCountUpdated (int maxTimeoutSec) {
+        int initialResultCount = getResultCount();
+
+        for (int i = 0; i < maxTimeoutSec; i++ ) {
+            try {
+                sleep(1000);
+                int currentResultCount = getResultCount();
+                if (initialResultCount != currentResultCount) {
+                    break;
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
 
 
 }
