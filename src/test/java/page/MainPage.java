@@ -38,6 +38,19 @@ public class MainPage extends BasePage {
     @FindBy(xpath = "//incident-list//incident-card")
     private List<WebElement> incidentsCardsList;
 
+    @FindBy(xpath = "//div[@class='available-options']")
+    private WebElement optionsList;
+
+    private WebElement prepareWebElementWithDynamicXpath(int timeFramePeriod) {
+        //       String requiredXpath = "//filter-menu/div[@class='available-options']//span[@class='time-increment' and text()='REPLACEVALUE']";
+//        return webDriver.findElement(By.xpath(requiredXpath.replace("REPLACEVALUE", String.valueOf(timeFramePeriod))));
+
+//        return webDriver.findElement(By.xpath("//filter-menu/div[@class='available-options']//span[@class='time-increment' and text()='"+timeFramePeriod+"']"));
+
+        return webDriver.findElement(By.xpath(
+                String.format("//filter-menu/div[@class='available-options']//span[@class='time-increment' and text()='%d']", timeFramePeriod)));
+    }
+
     /**
      * MainPage class constructor.
      * Initialize MainPage WebElements
@@ -93,9 +106,11 @@ public class MainPage extends BasePage {
 
         waitUntilElementDisplayed(incidentsTimeFrameSwitch, 5);
         incidentsTimeFrameSwitch.click();
+        waitUntilElementDisplayed(optionsList, 5);
         WebElement timeFrameSwitch = prepareWebElementWithDynamicXpath(timeFramePeriod);
         waitUntilElementDisplayed(timeFrameSwitch, 5);
         waitUntilElementClicable(timeFrameSwitch, 5);
+        waitUntilElementDisplayed(timeFrameSwitch, 5);
         timeFrameSwitch.click();
         waitResultsCountUpdated(5);
 
@@ -105,15 +120,6 @@ public class MainPage extends BasePage {
         return incidentsCardsList.size();
     }
 
-    private WebElement prepareWebElementWithDynamicXpath(int timeFramePeriod) {
- //       String requiredXpath = "//filter-menu/div[@class='available-options']//span[@class='time-increment' and text()='REPLACEVALUE']";
-//        return webDriver.findElement(By.xpath(requiredXpath.replace("REPLACEVALUE", String.valueOf(timeFramePeriod))));
-
-//        return webDriver.findElement(By.xpath("//filter-menu/div[@class='available-options']//span[@class='time-increment' and text()='"+timeFramePeriod+"']"));
-
-        return webDriver.findElement(By.xpath(
-                String.format("//filter-menu/div[@class='available-options']//span[@class='time-increment' and text()='%d']", timeFramePeriod)));
-    }
 
     public boolean waitUntilResultCounterChanged(int timeout) {
         int resultsCountValueBefore = getResultCount();

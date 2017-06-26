@@ -4,10 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import page.LoginPage;
 import page.MainPage;
 
@@ -18,16 +15,26 @@ public class MainPageTest  {
     public String password = "Test123!";
 
     public WebDriver webDriver;
+    public MainPage mainPage;
 
-    @BeforeMethod
-    public void beforeMethod() {
+//    @BeforeMethod
+//    public void beforeMethod() {
 
+    @BeforeClass
+    public void beforeClass() {
         webDriver = new FirefoxDriver();
         webDriver.navigate().to("https://alerts.shotspotter.biz/");
+
+        LoginPage loginPage = PageFactory.initElements(webDriver, LoginPage.class);
+        loginPage.isLoginPageLoaded();
+        mainPage = loginPage.loginAsReturnToLoginPage(username, password);
+
     }
 
-    @AfterMethod
-    public void afterMethod() {
+//    @AfterMethod
+//    public void afterMethod() {
+    @AfterClass
+    public void afterClass() {
 
         webDriver.quit();
     }
@@ -35,8 +42,8 @@ public class MainPageTest  {
     @Test
     public void testIncidentsPeriodSwitch() {
 
-        LoginPage loginPage = new LoginPage(webDriver);
-        MainPage mainPage = loginPage.loginAsReturnToLoginPage(username, password);
+//        LoginPage loginPage = new LoginPage(webDriver);
+//        MainPage mainPage = loginPage.loginAsReturnToLoginPage(username, password);
 
 //        mainPage.swithTimeFramePeriod(7);
 
@@ -78,16 +85,16 @@ public class MainPageTest  {
     @Test (dataProvider = "timeFrameOptions")
     public void testIncidentsPeriodSwitchByDataProvider(int timeFrameOption) {
 
-        LoginPage loginPage = PageFactory.initElements(webDriver, LoginPage.class);
+ //       LoginPage loginPage = PageFactory.initElements(webDriver, LoginPage.class);
 
-        Assert.assertTrue(loginPage.isLoginPageLoaded(), "Login Page is not loaded");
-        Assert.assertEquals(loginPage.getPageURL(), "https://alerts.shotspotter.biz/", ("Wrong url before login"));
-        Assert.assertEquals(loginPage.getPageTitle(), "Shotspotter - Login", "Main page title is wrong");
+  //      Assert.assertTrue(loginPage.isLoginPageLoaded(), "Login Page is not loaded");
+ //       Assert.assertEquals(loginPage.getPageURL(), "https://alerts.shotspotter.biz/", ("Wrong url before login"));
+ //       Assert.assertEquals(loginPage.getPageTitle(), "Shotspotter - Login", "Main page title is wrong");
 
-        MainPage mainPage = loginPage.loginAsReturnToLoginPage(username, password);
+ //       MainPage mainPage = loginPage.loginAsReturnToLoginPage(username, password);
 
-        Assert.assertTrue(mainPage.isPageLoaded(), "settings icon is not displayed");
-        Assert.assertTrue(mainPage.getPageURL().contains("https://alerts.shotspotter.biz/main"),"Wrong url after Login");
+ //       Assert.assertTrue(mainPage.isPageLoaded(), "settings icon is not displayed");
+ //       Assert.assertTrue(mainPage.getPageURL().contains("https://alerts.shotspotter.biz/main"),"Wrong url after Login");
 
         mainPage.swithTimeFramePeriod(timeFrameOption);
         int resultsCount = mainPage.getResultCount();
