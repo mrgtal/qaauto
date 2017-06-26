@@ -97,6 +97,7 @@ public class MainPage extends BasePage {
         waitUntilElementDisplayed(timeFrameSwitch, 5);
         waitUntilElementClicable(timeFrameSwitch, 5);
         timeFrameSwitch.click();
+        waitResultsCountUpdated(5);
 
     }
 
