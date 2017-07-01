@@ -33,8 +33,6 @@ public class MainPage extends BasePage {
     @FindBy(xpath = "//div[text()='List']")
     private WebElement listButton;
 
-    // //div[@class='incidents']//incident-card
-    // //incident-list//incident-card
     @FindBy(xpath = "//incident-list//incident-card")
     private List<WebElement> incidentsCardsList;
 
@@ -42,10 +40,6 @@ public class MainPage extends BasePage {
     private WebElement optionsList;
 
     private WebElement prepareWebElementWithDynamicXpath(int timeFramePeriod) {
-        //       String requiredXpath = "//filter-menu/div[@class='available-options']//span[@class='time-increment' and text()='REPLACEVALUE']";
-//        return webDriver.findElement(By.xpath(requiredXpath.replace("REPLACEVALUE", String.valueOf(timeFramePeriod))));
-
-//        return webDriver.findElement(By.xpath("//filter-menu/div[@class='available-options']//span[@class='time-increment' and text()='"+timeFramePeriod+"']"));
 
         return webDriver.findElement(By.xpath(
                 String.format("//filter-menu/div[@class='available-options']//span[@class='time-increment' and text()='%d']", timeFramePeriod)));
@@ -158,6 +152,5 @@ public class MainPage extends BasePage {
 
         }
     }
-
 
 }

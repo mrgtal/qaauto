@@ -17,9 +17,6 @@ public class MainPageTest  {
     public WebDriver webDriver;
     public MainPage mainPage;
 
-//    @BeforeMethod
-//    public void beforeMethod() {
-
     @BeforeClass
     public void beforeClass() {
         webDriver = new FirefoxDriver();
@@ -31,8 +28,6 @@ public class MainPageTest  {
 
     }
 
-//    @AfterMethod
-//    public void afterMethod() {
     @AfterClass
     public void afterClass() {
 
@@ -42,41 +37,24 @@ public class MainPageTest  {
     @Test
     public void testIncidentsPeriodSwitch() {
 
-//        LoginPage loginPage = new LoginPage(webDriver);
-//        MainPage mainPage = loginPage.loginAsReturnToLoginPage(username, password);
-
-//        mainPage.swithTimeFramePeriod(7);
-
- //         boolean resultChanged = mainPage.waitUntilResultCounterChanged(7);
-  //      Assert.assertEquals(resultChanged, true, "Result count was not changed after Period changed");
-  //      mainPage.waitResultsCountUpdated(5);
-//        int resultsCount = mainPage.getResultCount();
-//        int incidentCardsCount = mainPage.getIncidentCardsCount();
-//        Assert.assertEquals(resultsCount, incidentCardsCount, "Results count does not match Incident Cards count");
-
-
         int[] timeFrameOptions = {24, 3, 7};
 
         for (int timeFrameOption : timeFrameOptions) {
 
             mainPage.swithTimeFramePeriod(timeFrameOption);
 
-//            mainPage.waitResultsCountUpdated(5);
             int resultsCount = mainPage.getResultCount();
             int incidentCardsCount = mainPage.getIncidentCardsCount();
             Assert.assertEquals(resultsCount, incidentCardsCount, "Results count does not match Incident Cards count");
 
         }
 
-
     }
-
 
     @DataProvider
     public static Object[][] timeFrameOptions() {
         return new Object[][] {{24}, {3}, {7}};
      }
-
 
     /**
      * Test Incidents Periods Switch and validate Incident Cards qnty
@@ -85,23 +63,10 @@ public class MainPageTest  {
     @Test (dataProvider = "timeFrameOptions")
     public void testIncidentsPeriodSwitchByDataProvider(int timeFrameOption) {
 
- //       LoginPage loginPage = PageFactory.initElements(webDriver, LoginPage.class);
-
-  //      Assert.assertTrue(loginPage.isLoginPageLoaded(), "Login Page is not loaded");
- //       Assert.assertEquals(loginPage.getPageURL(), "https://alerts.shotspotter.biz/", ("Wrong url before login"));
- //       Assert.assertEquals(loginPage.getPageTitle(), "Shotspotter - Login", "Main page title is wrong");
-
- //       MainPage mainPage = loginPage.loginAsReturnToLoginPage(username, password);
-
- //       Assert.assertTrue(mainPage.isPageLoaded(), "settings icon is not displayed");
- //       Assert.assertTrue(mainPage.getPageURL().contains("https://alerts.shotspotter.biz/main"),"Wrong url after Login");
-
         mainPage.swithTimeFramePeriod(timeFrameOption);
         int resultsCount = mainPage.getResultCount();
         int incidentCardsCount = mainPage.getIncidentCardsCount();
         Assert.assertEquals(resultsCount, incidentCardsCount, "Results count does not match Incident Cards count");
-
-
     }
 
 
