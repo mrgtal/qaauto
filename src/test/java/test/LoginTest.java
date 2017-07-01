@@ -11,15 +11,19 @@ public class LoginTest {
 
     public WebDriver webDriver;
 
-    @BeforeMethod
-    public void beforeMethod() {
+//    @BeforeMethod
+//    public void beforeMethod() {
+    @BeforeClass
+    public void beforeClass() {
 
         webDriver = new FirefoxDriver();
         webDriver.navigate().to("https://alerts.shotspotter.biz/");
     }
 
-    @AfterMethod
-    public void afterMethod() {
+//    @AfterMethod
+//    public void afterMethod() {
+    @AfterClass
+    public void afterClass() {
 
         webDriver.quit();
     }
@@ -30,7 +34,8 @@ public class LoginTest {
 
     /**
      * password variable for login
-     */    String password = "P@ssword123";
+     */
+    String password = "P@ssword123";
 
     /**
      * Method to execute before any Test
@@ -113,6 +118,39 @@ public class LoginTest {
         Assert.assertEquals(loginPage.getPageTitle(), "Shotspotter - Login", "Main page title is wrong");
 
     }
+
+
+
+    @DataProvider
+    public static Object[][] negativeLoginOptions() {
+        String negativeLoginMessage = "The provided credentials are not correct.";
+        return new Object[][]  {{"",                    "",                 negativeLoginMessage},
+                                {" ",                   " ",                negativeLoginMessage},
+                                {"InvalidEmail",        "InvalidPassword",  negativeLoginMessage},
+                                {"somemail@gmail.com",  "BLABLABLA",        negativeLoginMessage},
+                                {"@",                   "@",                negativeLoginMessage}
+                            };
+    }
+
+    @Test (dataProvider = "negativeLoginOptions")
+    public void NegativeLoginTestWithDataProvider(String negativeLoginEmail, String negativeLoginPassword, String negativeLoginMessage) {
+
+        String expectedErrorMsg = "The provided credentials are not correct.";
+
+        LoginPage loginPage = new LoginPage(webDriver);
+
+        Assert.assertTrue(loginPage.isLoginPageLoaded(), "Login page is not loaded");
+
+        LoginPage resultPage = loginPage.loginAsReturnToLoginPage(negativeLoginEmail, negativeLoginPassword);
+
+        Assert.assertTrue(resultPage.IsInvalidCredentialsDisplayed(), negativeLoginMessage);
+        Assert.assertEquals(resultPage.getErrorText(), negativeLoginMessage, "Error text is wrong");
+        Assert.assertTrue(resultPage.isLoginPageLoaded(), "Login page is not loaded");
+
+    }
+
+
+
 
 
 }

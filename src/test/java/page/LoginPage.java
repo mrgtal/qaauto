@@ -46,7 +46,9 @@ public class LoginPage extends BasePage {
      * @return LoginPage or MainPage
      */
     public <T> T loginAsReturnToLoginPage(String user, String pw){
+        emailField.clear();
         emailField.sendKeys(user);
+        passwordField.clear();
         passwordField.sendKeys(pw);
         goButton.click();
 

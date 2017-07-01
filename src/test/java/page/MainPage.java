@@ -110,7 +110,6 @@ public class MainPage extends BasePage {
         WebElement timeFrameSwitch = prepareWebElementWithDynamicXpath(timeFramePeriod);
         waitUntilElementDisplayed(timeFrameSwitch, 5);
         waitUntilElementClicable(timeFrameSwitch, 5);
-        waitUntilElementDisplayed(timeFrameSwitch, 5);
         timeFrameSwitch.click();
         waitResultsCountUpdated(5);
 
