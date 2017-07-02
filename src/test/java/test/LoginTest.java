@@ -1,6 +1,7 @@
 package test;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -16,7 +17,9 @@ public class LoginTest {
     @BeforeClass
     public void beforeClass() {
 
-        webDriver = new FirefoxDriver();
+//        webDriver = new FirefoxDriver();
+        webDriver = new ChromeDriver();
+//        webDriver.navigate().to("https://google.com/");
         webDriver.navigate().to("https://alerts.shotspotter.biz/");
     }
 
@@ -134,8 +137,6 @@ public class LoginTest {
 
     @Test (dataProvider = "negativeLoginOptions")
     public void NegativeLoginTestWithDataProvider(String negativeLoginEmail, String negativeLoginPassword, String negativeLoginMessage) {
-
-        String expectedErrorMsg = "The provided credentials are not correct.";
 
         LoginPage loginPage = new LoginPage(webDriver);
 
