@@ -14,12 +14,26 @@ public class LoginTest {
 
 //    @BeforeMethod
 //    public void beforeMethod() {
+    @Parameters({ "browserName" })
     @BeforeClass
     public void beforeClass() {
 
 //        webDriver = new FirefoxDriver();
-        webDriver = new ChromeDriver();
-//        webDriver.navigate().to("https://google.com/");
+//        webDriver = new ChromeDriver();
+
+        if (browserName.equalsIgnoreCase("Firefox")) {
+            webDriver = new FirefoxDriver();
+        } else if (browserName.equalsIgnoreCase("chrome")) {
+            System.setProperty("webdriver.chrome.driver",
+                    "D:/chromedriver.exe");
+            webDriver = new ChromeDriver();
+        } else if (browserName.equalsIgnoreCase("IE")) {
+            System.setProperty("webdriver.ie.driver",
+                    "D:/IEDriverServer.exe");
+            webDriver = new InternetExplorerDriver();
+        }
+
+
         webDriver.navigate().to("https://alerts.shotspotter.biz/");
     }
 
