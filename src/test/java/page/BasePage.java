@@ -11,9 +11,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class BasePage {
 
-    /**
-     * variable WebDriver type
-     */
     public WebDriver webDriver;
 
     /**
@@ -89,7 +86,6 @@ public class BasePage {
         return wait.until(ExpectedConditions.elementToBeClickable(element));
 
     }
-
 
 }
 

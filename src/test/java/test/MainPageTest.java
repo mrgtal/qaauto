@@ -56,10 +56,6 @@ public class MainPageTest  {
         return new Object[][] {{24}, {3}, {7}};
      }
 
-    /**
-     * Test Incidents Periods Switch and validate Incident Cards qnty
-     */
-
     @Test (dataProvider = "timeFrameOptions")
     public void testIncidentsPeriodSwitchByDataProvider(int timeFrameOption) {
 

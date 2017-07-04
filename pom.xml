@@ -8,7 +8,6 @@
     <artifactId>qa-auto</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
@@ -24,6 +23,9 @@
         </dependency>
     </dependencies>
 
+    <properties>
+        <suiteXmlFile>login-tests-chrome.xml</suiteXmlFile>
+    </properties>
 
     <build>
         <plugins>
@@ -38,7 +40,5 @@
                 </configuration>
             </plugin>
         </plugins>
-
     </build>
-
 </project>

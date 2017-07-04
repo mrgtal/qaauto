@@ -3,6 +3,7 @@ package test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import page.LoginPage;
@@ -12,51 +13,38 @@ public class LoginTest {
 
     public WebDriver webDriver;
 
-//    @BeforeMethod
-//    public void beforeMethod() {
-
-
     @Parameters({ "browserName" })
     @BeforeClass
     public void beforeClass(String browserName) {
 
-//        webDriver = new FirefoxDriver();
-//        webDriver = new ChromeDriver();
-
-        if (browserName.equalsIgnoreCase("Firefox")) {
-            webDriver = new FirefoxDriver();
-        } else if (browserName.equalsIgnoreCase("chrome")) {
-            webDriver = new ChromeDriver();
-        } else  {
-//default value
-    //        webDriver = new FirefoxDriver();
-        }
-
+        selectBrowser(browserName);
         webDriver.navigate().to("https://alerts.shotspotter.biz/");
     }
 
-//    @AfterMethod
-//    public void afterMethod() {
     @AfterClass
     public void afterClass() {
 
         webDriver.quit();
     }
-    /**
-     * username variable for login
-     */
-    String username = "sst.tau@gmail.com";
 
-    /**
-     * password variable for login
-     */
+    String username = "sst.tau@gmail.com";
     String password = "P@ssword123";
 
-    /**
-     * Method to execute before any Test
-     * creates firefox webdriver
-     * opens loginpage URL
-     */
+
+    public void selectBrowser(String browserName) {
+
+        if (browserName.equalsIgnoreCase("Firefox")) {
+            webDriver = new FirefoxDriver();
+        } else if (browserName.equalsIgnoreCase("chrome")) {
+            webDriver = new ChromeDriver();
+        } else if (browserName.equalsIgnoreCase("IE")) {
+            webDriver = new InternetExplorerDriver();
+        } else {
+//default value
+//           webDriver = new FirefoxDriver();
+        }
+
+    }
 
 
     /**
@@ -134,8 +122,6 @@ public class LoginTest {
 
     }
 
-
-
     @DataProvider
     public static Object[][] negativeLoginOptions() {
         String negativeLoginMessage = "The provided credentials are not correct.";
@@ -161,9 +147,5 @@ public class LoginTest {
         Assert.assertTrue(resultPage.isLoginPageLoaded(), "Login page is not loaded");
 
     }
-
-
-
-
 
 }
