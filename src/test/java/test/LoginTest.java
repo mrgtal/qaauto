@@ -17,7 +17,7 @@ public class LoginTest {
     @BeforeClass
     public void beforeClass(String browserName) {
 
-        selectBrowser(browserName);
+        webDriver = BrowserSelect.selectBrowser(browserName);
         webDriver.navigate().to("https://alerts.shotspotter.biz/");
     }
 
@@ -30,21 +30,6 @@ public class LoginTest {
     String username = "sst.tau@gmail.com";
     String password = "P@ssword123";
 
-
-    public void selectBrowser(String browserName) {
-
-        if (browserName.equalsIgnoreCase("Firefox")) {
-            webDriver = new FirefoxDriver();
-        } else if (browserName.equalsIgnoreCase("chrome")) {
-            webDriver = new ChromeDriver();
-        } else if (browserName.equalsIgnoreCase("IE")) {
-            webDriver = new InternetExplorerDriver();
-        } else {
-//default value
-//           webDriver = new FirefoxDriver();
-        }
-
-    }
 
 
     /**
