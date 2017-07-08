@@ -41,8 +41,8 @@ public class LoginTest extends BaseTest {
      * Logins using correct credentials provided
      * Checks if MainPage loaded, if URL changed
      */
-    @Ignore
-    @Test
+
+    @Test(enabled = false)
     public void testLoginPositive() {
 
  //       LoginPage loginPage = new LoginPage(webDriver);
@@ -92,7 +92,7 @@ public class LoginTest extends BaseTest {
      *  Logout from MainPage
      *  Checks if LoginPage loaded, if URL changed, if PageTitle changed
      */
-    @Test
+    @Test(enabled = false)
     public void TestLogout() {
 
         MainPage mainPage = loginPage.loginAsReturnToLoginPage(username, password);
