@@ -1,5 +1,6 @@
 package test;
 
+import org.junit.Ignore;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -40,6 +41,7 @@ public class LoginTest extends BaseTest {
      * Logins using correct credentials provided
      * Checks if MainPage loaded, if URL changed
      */
+    @Ignore
     @Test
     public void testLoginPositive() {
 
