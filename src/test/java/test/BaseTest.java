@@ -1,24 +1,39 @@
 package test;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 
 public class BaseTest {
 
-    public WebDriver webDriver;
+    public static WebDriver selectBrowserByNameqq(String browserName) {
 
-    @BeforeMethod
-    public void beforeMethod() {
-
-        webDriver = new FirefoxDriver();
-        webDriver.navigate().to("https://alerts.shotspotter.biz/");
+        if (browserName.equalsIgnoreCase("Firefox")) {
+            return new FirefoxDriver();
+        } else if (browserName.equalsIgnoreCase("chrome")) {
+            return new ChromeDriver();
+        } else if (browserName.equalsIgnoreCase("IE")) {
+            return new InternetExplorerDriver();
+        } else {
+            return null;
+        }
     }
 
-    @AfterMethod
-    public void afterMethod() {
+    public static WebDriver selectBrowserByName(String browserName) {
+        switch (browserName.toLowerCase()) {
+            case "firefox":
+                return new FirefoxDriver();
+            case "chrome":
+                return new ChromeDriver();
+            case "ie":
+                return new InternetExplorerDriver();
+            default:
+                return null;
+        }
 
-        webDriver.quit();
     }
+
+
+
 }

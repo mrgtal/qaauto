@@ -9,7 +9,7 @@ import page.LoginPage;
 import page.MainPage;
 
 
-public class MainPageTest  {
+public class MainPageTest extends BaseTest  {
 
     public String username = "denvert1@shotspotter.net";
     public String password = "Test123!";
@@ -17,9 +17,10 @@ public class MainPageTest  {
     public WebDriver webDriver;
     public MainPage mainPage;
 
+    @Parameters ({ "browserName" })
     @BeforeClass
-    public void beforeClass() {
-        webDriver = new FirefoxDriver();
+    public void beforeClass(@Optional("firefox") String browserName) {
+        webDriver = selectBrowserByName(browserName);
         webDriver.navigate().to("https://alerts.shotspotter.biz/");
 
         LoginPage loginPage = PageFactory.initElements(webDriver, LoginPage.class);

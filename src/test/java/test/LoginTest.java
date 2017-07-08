@@ -1,24 +1,25 @@
 package test;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import page.LoginPage;
 import page.MainPage;
 
-public class LoginTest {
+public class LoginTest extends BaseTest {
 
     public WebDriver webDriver;
+    public LoginPage loginPage;
 
-    @Parameters({ "browserName" })
+    @Parameters ({ "browserName" })
     @BeforeClass
-    public void beforeClass(String browserName) {
+    public void beforeClass(@Optional("firefox") String browserName) {
 
-        webDriver = BrowserSelect.selectBrowser(browserName);
+        webDriver = selectBrowserByName(browserName);
         webDriver.navigate().to("https://alerts.shotspotter.biz/");
+        loginPage = new LoginPage(webDriver);
+
+
     }
 
     @AfterClass
@@ -29,7 +30,6 @@ public class LoginTest {
 
     String username = "sst.tau@gmail.com";
     String password = "P@ssword123";
-
 
 
     /**
@@ -43,7 +43,7 @@ public class LoginTest {
     @Test
     public void testLoginPositive() {
 
-        LoginPage loginPage = new LoginPage(webDriver);
+ //       LoginPage loginPage = new LoginPage(webDriver);
 
         Assert.assertTrue(loginPage.isLoginPageLoaded(), "Login page is not loaded");
         Assert.assertEquals(loginPage.getPageURL(), "https://alerts.shotspotter.biz/", ("Wrong url before login"));
@@ -67,9 +67,9 @@ public class LoginTest {
     @Test
     public void TestLoginNegative() {
 
-        String expectedErrorMsg = "The provided credentials are not correct.";
+ //       LoginPage loginPage = new LoginPage(webDriver);
 
-        LoginPage loginPage = new LoginPage(webDriver);
+        String expectedErrorMsg = "The provided credentials are not correct.";
 
         Assert.assertTrue(loginPage.isLoginPageLoaded(), "Login page is not loaded");
 
@@ -92,8 +92,6 @@ public class LoginTest {
      */
     @Test
     public void TestLogout() {
-
-        LoginPage loginPage = new LoginPage(webDriver);
 
         MainPage mainPage = loginPage.loginAsReturnToLoginPage(username, password);
 
@@ -121,7 +119,7 @@ public class LoginTest {
     @Test (dataProvider = "negativeLoginOptions")
     public void NegativeLoginTestWithDataProvider(String negativeLoginEmail, String negativeLoginPassword, String negativeLoginMessage) {
 
-        LoginPage loginPage = new LoginPage(webDriver);
+ //       LoginPage loginPage = new LoginPage(webDriver);
 
         Assert.assertTrue(loginPage.isLoginPageLoaded(), "Login page is not loaded");
 
