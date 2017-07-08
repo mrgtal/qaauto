@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="LoginTests" verbose="1">
+<suite name="LoginTests" verbose="1" configfailurepolicy="continue">
     <test name="LoginTestsFirefox" >
         <parameter name="browserName" value="firefox"/>
         <classes>
