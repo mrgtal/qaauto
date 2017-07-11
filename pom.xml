@@ -21,6 +21,13 @@
             <version>6.8</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>1.7.1</version>
+        </dependency>
+
     </dependencies>
 
     <properties>

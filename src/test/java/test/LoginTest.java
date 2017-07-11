@@ -44,8 +44,8 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void testLoginPositive() {
-//        System.out.println(System.getProperty("webdriver.chrome.driver"));
-//        System.out.println(System.getProperty("webdriver.gecko.driver"));
+        System.out.println(System.getProperty("webdriver.chrome.driver"));
+        System.out.println(System.getProperty("webdriver.gecko.driver"));
 
         Assert.assertTrue(loginPage.isLoginPageLoaded(), "Login page is not loaded");
         Assert.assertEquals(loginPage.getPageURL(), "https://alerts.shotspotter.biz/", ("Wrong url before login"));

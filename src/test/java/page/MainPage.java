@@ -34,6 +34,8 @@ public class MainPage extends BasePage {
     private WebElement listButton;
 
     @FindBy(xpath = "//incident-list//incident-card")
+//    "//incident-list//incident-card[1]" - take 1st element
+//    "//incident-list//incident-card[1]//div[@class='address']" - address in 1st element
     private List<WebElement> incidentsCardsList;
 
     @FindBy(xpath = "//div[@class='available-options']")
