@@ -42,7 +42,7 @@ public class LoginTest extends BaseTest {
      * Checks if MainPage loaded, if URL changed
      */
 
-    @Test(enabled = false)
+    @Test
     public void testLoginPositive() {
 //        System.out.println(System.getProperty("webdriver.chrome.driver"));
 //        System.out.println(System.getProperty("webdriver.gecko.driver"));

@@ -1,5 +1,7 @@
 package test;
 
+import io.github.bonigarcia.wdm.ChromeDriverManager;
+import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -11,12 +13,15 @@ public class BaseTest {
 
     public static WebDriver selectBrowserByName(String browserName) {
 
-        String resourcesPath = "\\src\\test\\resources\\";
+/*        String resourcesPath = "\\src\\test\\resources\\";
 
         System.setProperty("webdriver.chrome.driver",
                 System.getProperty("user.dir") + resourcesPath + "chromedriver.exe");
         System.setProperty("webdriver.gecko.driver",
-                System.getProperty("user.dir") + resourcesPath + "geckodriver.exe");
+                System.getProperty("user.dir") + resourcesPath + "geckodriver.exe");*/
+
+        ChromeDriverManager.getInstance().setup();
+        FirefoxDriverManager.getInstance().setup();
 
         switch (browserName.toLowerCase()) {
             case "firefox":
@@ -33,7 +38,7 @@ public class BaseTest {
 
 
 
-    
+
 
 
 
