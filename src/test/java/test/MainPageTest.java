@@ -1,7 +1,6 @@
 package test;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -42,7 +41,7 @@ public class MainPageTest extends BaseTest  {
 
         for (int timeFrameOption : timeFrameOptions) {
 
-            mainPage.swithTimeFramePeriod(timeFrameOption);
+            mainPage.switchTimeFramePeriod(timeFrameOption);
 
             int resultsCount = mainPage.getResultCount();
             int incidentCardsCount = mainPage.getIncidentCardsCount();
@@ -60,7 +59,7 @@ public class MainPageTest extends BaseTest  {
     @Test (dataProvider = "timeFrameOptions")
     public void testIncidentsPeriodSwitchByDataProvider(int timeFrameOption) {
 
-        mainPage.swithTimeFramePeriod(timeFrameOption);
+        mainPage.switchTimeFramePeriod(timeFrameOption);
         int resultsCount = mainPage.getResultCount();
         int incidentCardsCount = mainPage.getIncidentCardsCount();
         Assert.assertEquals(resultsCount, incidentCardsCount, "Results count does not match Incident Cards count");

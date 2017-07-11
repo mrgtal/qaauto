@@ -96,7 +96,7 @@ public class MainPage extends BasePage {
 
     }
 
-    public void swithTimeFramePeriod(int timeFramePeriod) {
+    public void switchTimeFramePeriod(int timeFramePeriod) {
 
         waitUntilElementDisplayed(incidentsTimeFrameSwitch, 5);
         incidentsTimeFrameSwitch.click();

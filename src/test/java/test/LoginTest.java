@@ -1,6 +1,5 @@
 package test;
 
-import org.junit.Ignore;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -16,10 +15,11 @@ public class LoginTest extends BaseTest {
     @BeforeClass
     public void beforeClass(@Optional("firefox") String browserName) {
 
+  //      setDriverPath();
         webDriver = selectBrowserByName(browserName);
+
         webDriver.navigate().to("https://alerts.shotspotter.biz/");
         loginPage = new LoginPage(webDriver);
-
 
     }
 
@@ -44,8 +44,8 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void testLoginPositive() {
-
- //       LoginPage loginPage = new LoginPage(webDriver);
+//        System.out.println(System.getProperty("webdriver.chrome.driver"));
+//        System.out.println(System.getProperty("webdriver.gecko.driver"));
 
         Assert.assertTrue(loginPage.isLoginPageLoaded(), "Login page is not loaded");
         Assert.assertEquals(loginPage.getPageURL(), "https://alerts.shotspotter.biz/", ("Wrong url before login"));
@@ -68,8 +68,6 @@ public class LoginTest extends BaseTest {
      */
     @Test
     public void TestLoginNegative() {
-
- //       LoginPage loginPage = new LoginPage(webDriver);
 
         String expectedErrorMsg = "The provided credentials are not correct.";
 
@@ -120,8 +118,6 @@ public class LoginTest extends BaseTest {
 
     @Test (dataProvider = "negativeLoginOptions")
     public void NegativeLoginTestWithDataProvider(String negativeLoginEmail, String negativeLoginPassword, String negativeLoginMessage) {
-
- //       LoginPage loginPage = new LoginPage(webDriver);
 
         Assert.assertTrue(loginPage.isLoginPageLoaded(), "Login page is not loaded");
 
