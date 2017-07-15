@@ -6,7 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static java.lang.Thread.sleep;
 
@@ -34,9 +36,16 @@ public class MainPage extends BasePage {
     private WebElement listButton;
 
     @FindBy(xpath = "//incident-list//incident-card")
-//    "//incident-list//incident-card[1]" - take 1st element
-//    "//incident-list//incident-card[1]//div[@class='address']" - address in 1st element
     private List<WebElement> incidentsCardsList;
+
+    @FindBy(xpath = "//incident-list//incident-card//div[@class='address']")
+    private List<WebElement> incidentsCardAddresses;
+
+    @FindBy(xpath = "//incident-list//incident-card//div[@class='city S']")
+    private List<WebElement> incidentsCardCities;
+
+    @FindBy(xpath = "//incident-list//incident-card//div[@class='cell-container']//div[@class='cell day']//div[@class='content']")
+    private List<WebElement> incidentsCardTime;
 
     @FindBy(xpath = "//div[@class='available-options']")
     private WebElement optionsList;
@@ -46,6 +55,8 @@ public class MainPage extends BasePage {
         return webDriver.findElement(By.xpath(
                 String.format("//filter-menu/div[@class='available-options']//span[@class='time-increment' and text()='%d']", timeFramePeriod)));
     }
+
+
 
     /**
      * MainPage class constructor.
@@ -111,32 +122,55 @@ public class MainPage extends BasePage {
 
     }
 
-    public int getIncidentCardsCount() {
-        return incidentsCardsList.size();
+
+    public int getListCount(String listToCount) {
+
+        switch (listToCount.toLowerCase()) {
+            case "address":
+                return incidentsCardAddresses.size();
+            case "city":
+                return incidentsCardCities.size();
+            case "time":
+                return incidentsCardTime.size();
+            case "incidentcard":
+                return incidentsCardsList.size();
+            default:
+                return 0;
+        }
+
     }
 
 
-    public boolean waitUntilResultCounterChanged(int timeout) {
-        int resultsCountValueBefore = getResultCount();
-        int resultsCountValueAfter = getResultCount();
-        int countdown = 0;
+    public int allCitiesEqualTo(String cityName) {
 
-        while (resultsCountValueAfter == resultsCountValueBefore) {
-
-            try {
-                sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            resultsCountValueAfter = getResultCount();
-            countdown++;
-            if(countdown==timeout) {
-                return false;
+        for(WebElement cityListElement : incidentsCardCities) {
+            if(!cityListElement.getText().equalsIgnoreCase(cityName)) {
+                return incidentsCardCities.indexOf(cityListElement);
             }
         }
-        return true;
+        return -1;
     }
+
+
+    public int allAddressesNotEmpty() {
+        for(WebElement addressListElement : incidentsCardAddresses) {
+            if(addressListElement.getText().isEmpty()) {
+                return incidentsCardAddresses.indexOf(addressListElement);
+            }
+        }
+        return -1;
+    }
+
+
+    public boolean ifAllTimeUnique() {
+        Set timeCountSet = new HashSet(incidentsCardTime);
+        if(timeCountSet.size() < incidentsCardTime.size()) {
+            return false;
+        }
+        return true;
+
+    }
+
 
     public void waitResultsCountUpdated (int maxTimeoutSec) {
         int initialResultCount = getResultCount();

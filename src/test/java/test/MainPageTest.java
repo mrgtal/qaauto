@@ -7,6 +7,11 @@ import org.testng.annotations.*;
 import page.LoginPage;
 import page.MainPage;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 
 public class MainPageTest extends BaseTest  {
 
@@ -34,6 +39,51 @@ public class MainPageTest extends BaseTest  {
         webDriver.quit();
     }
 
+
+    @Test(enabled = false)
+    public void testListToSet() {
+
+        List<String> listArray = new ArrayList<String>();
+        listArray.add("address");
+        listArray.add("city");
+        listArray.add("time");
+        listArray.add("address");
+        listArray.add("city");
+        Set setArray = new HashSet(listArray);
+        System.out.println(listArray);
+        System.out.println(setArray);
+
+    }
+
+    @Test
+    public void validateIncidentCardAddressCityTime() {
+
+        String requiredCity = "Denver";
+
+        int incidentCardsCount = mainPage.getListCount("IncidentCard");
+
+        String[] listCountOptions = {"address", "city", "time"};
+
+        for (String listCountOption : listCountOptions) {
+
+            Assert.assertEquals(incidentCardsCount, mainPage.getListCount(listCountOption) ,
+                listCountOption + " Count doesn't match Cards Count");
+        }
+
+        int cityIndex =  mainPage.allCitiesEqualTo(requiredCity);
+        Assert.assertEquals(cityIndex, -1, "CityList element " + cityIndex + " is not " + requiredCity);
+
+        int addressIndex =  mainPage.allAddressesNotEmpty();
+        Assert.assertEquals(addressIndex, -1, "AddressList element " + addressIndex + " is empty");
+
+        Assert.assertTrue(mainPage.ifAllTimeUnique(), "There are non-unique timestamps");
+
+    }
+
+
+
+
+
     @Test
     public void testIncidentsPeriodSwitch() {
 
@@ -44,7 +94,8 @@ public class MainPageTest extends BaseTest  {
             mainPage.switchTimeFramePeriod(timeFrameOption);
 
             int resultsCount = mainPage.getResultCount();
-            int incidentCardsCount = mainPage.getIncidentCardsCount();
+//            int incidentCardsCount = mainPage.getIncidentCardsCount();
+            int incidentCardsCount = mainPage.getListCount("IncidentCard");
             Assert.assertEquals(resultsCount, incidentCardsCount, "Results count does not match Incident Cards count");
 
         }
@@ -61,25 +112,10 @@ public class MainPageTest extends BaseTest  {
 
         mainPage.switchTimeFramePeriod(timeFrameOption);
         int resultsCount = mainPage.getResultCount();
-        int incidentCardsCount = mainPage.getIncidentCardsCount();
+//        int incidentCardsCount = mainPage.getIncidentCardsCount();
+        int incidentCardsCount = mainPage.getListCount("IncidentCard");
         Assert.assertEquals(resultsCount, incidentCardsCount, "Results count does not match Incident Cards count");
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
