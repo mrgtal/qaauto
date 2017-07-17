@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,6 +26,9 @@ public class MainPage extends BasePage {
 
     @FindBy(xpath = "//li[text()='Logout']")
     private WebElement logoutItem;
+
+    @FindBy(xpath = "//li[text()='About']")
+    private WebElement aboutItem;
 
     @FindBy(xpath = "//filter-menu/div[@class='selected-option']")
     private WebElement incidentsTimeFrameSwitch;
@@ -50,6 +54,14 @@ public class MainPage extends BasePage {
     @FindBy(xpath = "//div[@class='available-options']")
     private WebElement optionsList;
 
+    @FindBy(xpath = "//a[text()='terms of service']")
+    private WebElement termsOfServiceLink;
+
+    @FindBy(xpath = "//button[text()='Close']")
+    private WebElement closeButtonElement;
+
+
+
     private WebElement prepareWebElementWithDynamicXpath(int timeFramePeriod) {
 
         return webDriver.findElement(By.xpath(
@@ -72,6 +84,48 @@ public class MainPage extends BasePage {
 
     }
 
+    public void openAboutDisplay() {
+        settingsItem.click();
+
+        waitUntilElementDisplayed(settingsOpen, 5);
+
+        waitUntilElementDisplayed(aboutItem, 5);
+        waitUntilElementClicable(aboutItem, 5);
+
+        aboutItem.click();
+    }
+
+
+
+    public TermsOfServicePage openTermsOfServicePage() {
+
+        waitUntilElementClicable(termsOfServiceLink, 5);
+
+        termsOfServiceLink.click();
+
+//switch to new window
+        webDriver.switchTo().Iterables.getLast();
+
+
+        return PageFactory.initElements(webDriver, TermsOfServicePage.class);
+
+    }
+
+    public void closeAboutScreen() {
+
+        closeButtonElement.click();
+
+    }
+
+
+
+
+
+    /**
+     * Method determines results count value
+     *
+     * @return integer result value
+     */
     public int getResultCount() {
         return Integer.parseInt(resultsCount.getText().toUpperCase().replace(" RESULTS", ""));
     }
@@ -109,6 +163,11 @@ public class MainPage extends BasePage {
 
     }
 
+    /**
+     * Method switches timeframe period to required
+     *
+     * @param timeFramePeriod integer period to switch
+     */
     public void switchTimeFramePeriod(int timeFramePeriod) {
 
         waitUntilElementDisplayed(incidentsTimeFrameSwitch, 5);
@@ -123,6 +182,12 @@ public class MainPage extends BasePage {
     }
 
 
+    /**
+     * Method returns size of required list
+     *
+     * @param listToCount
+     * @return int size of required list
+     */
     public int getListCount(String listToCount) {
 
         switch (listToCount.toLowerCase()) {
@@ -141,6 +206,12 @@ public class MainPage extends BasePage {
     }
 
 
+    /**
+     * Method validates if all cities are equal to required cityname
+     *
+     * @param cityName String. City to validate
+     * @return -1 if ok. return element index if condition doesn't fit
+     */
     public int allCitiesEqualTo(String cityName) {
 
         for(WebElement cityListElement : incidentsCardCities) {
@@ -152,6 +223,11 @@ public class MainPage extends BasePage {
     }
 
 
+    /**
+     * Method checks if all addresses are not empty
+     *
+     * @return -1 if ok. return element index if condition doesn't fit
+     */
     public int allAddressesNotEmpty() {
         for(WebElement addressListElement : incidentsCardAddresses) {
             if(addressListElement.getText().isEmpty()) {
@@ -162,16 +238,25 @@ public class MainPage extends BasePage {
     }
 
 
+    /**
+     * Method checks id all timestamps are unique
+     *
+     * @return true/false
+     */
     public boolean ifAllTimeUnique() {
         Set timeCountSet = new HashSet(incidentsCardTime);
         if(timeCountSet.size() < incidentsCardTime.size()) {
             return false;
         }
         return true;
-
     }
 
 
+    /**
+     * Method waits until results count is updated within provided time in seconds
+     *
+     * @param maxTimeoutSec max timeout to wait. in seconds
+     */
     public void waitResultsCountUpdated (int maxTimeoutSec) {
         int initialResultCount = getResultCount();
 
@@ -188,5 +273,54 @@ public class MainPage extends BasePage {
 
         }
     }
+
+
+
+
+
+
+
+// methods for 2nd test of IncidentCardsFields
+//implementation example
+
+    public int getIncidentCardsCount() {
+        listButton.click();
+        return incidentsCardsList.size();
+    }
+
+    public void openIncidentsList() {
+        listButton.click();
+        waitUntilElementDisplayed(incidentsCardsList.get(1), 5);
+    }
+
+    public List<String> getIncidentCardsCities() {
+        List<String> listCities = new ArrayList<String>();
+        for (WebElement incidentCard: incidentsCardsList) {
+            String cityText = incidentCard.findElement(By.xpath("//div[@class='city S']")).getText();
+            listCities.add(cityText);
+        }
+        return listCities;
+    }
+
+    public List<String> getIncidentCardsStreets() {
+        List<String> listStreets = new ArrayList<String>();
+        for (WebElement incidentCard: incidentsCardsList) {
+            String streetText = incidentCard.findElement(By.xpath("//div[@class='address']")).getText();
+            listStreets.add(streetText);
+        }
+        return listStreets;
+    }
+
+    public List<String> getIncidentCardsTimeStamps() {
+        List<String> listTimeStamps = new ArrayList<String>();
+        for (WebElement incidentCard: incidentsCardsList) {
+            String timeStampText =
+                    incidentCard.findElement(By.xpath("//div[@class='cell-container']//div[@class='cell day']//div[@class='content']")).getText();
+            listTimeStamps.add(timeStampText);
+        }
+        return listTimeStamps;
+    }
+
+
 
 }

@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import page.LoginPage;
 import page.MainPage;
+import page.TermsOfServicePage;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -20,6 +21,7 @@ public class MainPageTest extends BaseTest  {
 
     public WebDriver webDriver;
     public MainPage mainPage;
+    public TermsOfServicePage termsOfServicePage;
 
     @Parameters ({ "browserName" })
     @BeforeClass
@@ -56,16 +58,16 @@ public class MainPageTest extends BaseTest  {
     }
 
     @Test
-    public void validateIncidentCardAddressCityTime() {
+    public void testValidateIncidentCardDetails() {
 
         String requiredCity = "Denver";
 
         int incidentCardsCount = mainPage.getListCount("IncidentCard");
+        Assert.assertNotEquals(incidentCardsCount, 0, "No Incident Cards Available");
 
         String[] listCountOptions = {"address", "city", "time"};
 
         for (String listCountOption : listCountOptions) {
-
             Assert.assertEquals(incidentCardsCount, mainPage.getListCount(listCountOption) ,
                 listCountOption + " Count doesn't match Cards Count");
         }
@@ -75,8 +77,45 @@ public class MainPageTest extends BaseTest  {
 
         int addressIndex =  mainPage.allAddressesNotEmpty();
         Assert.assertEquals(addressIndex, -1, "AddressList element " + addressIndex + " is empty");
-
         Assert.assertTrue(mainPage.ifAllTimeUnique(), "There are non-unique timestamps");
+    }
+
+//2nd test. for implementation example
+    @Test
+    public void testValidateCardsDetailsV2() {
+        String expectedCity = "Denver";
+        mainPage.openIncidentsList();
+        List<String> listCities = mainPage.getIncidentCardsCities();
+        List<String> listStreets = mainPage.getIncidentCardsStreets();
+        List<String> listTimeStamps = mainPage.getIncidentCardsTimeStamps();
+
+        for (String elementCity: listCities) {
+            Assert.assertEquals(elementCity, expectedCity, "City is not Denver");
+        }
+
+        for (String elementStreet: listStreets) {
+            Assert.assertNotEquals(elementStreet, "", "Street address is empty");
+        }
+
+        for (String elementTimeStamp: listTimeStamps) {
+            Assert.assertNotEquals(elementTimeStamp, "", "TimeStamp is empty");
+        }
+
+    }
+
+
+    @Test
+    public void testTermsOfServiceWindow() {
+
+        mainPage.openAboutDisplay();
+        termsOfServicePage = mainPage.openTermsOfServicePage();
+
+        Assert.assertTrue(termsOfServicePage.isTermsOfServicePageLoaded(), "TermsOfService page is not loaded");
+        Assert.assertEquals(termsOfServicePage.getPageURL(), "https://alerts.shotspotter.biz/", ("Wrong url before login"));
+        Assert.assertEquals(termsOfServicePage.getPageTitle(), "Shotspotter - Login", "Main page title is wrong");
+
+        mainPage.closeAboutScreen();
+        mainPage.isPageLoaded();
 
     }
 
