@@ -1,5 +1,6 @@
 package page;
 
+import com.google.common.collect.Iterables;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -100,12 +101,8 @@ public class MainPage extends BasePage {
     public TermsOfServicePage openTermsOfServicePage() {
 
         waitUntilElementClicable(termsOfServiceLink, 5);
-
         termsOfServiceLink.click();
-
-//switch to new window
-        webDriver.switchTo().Iterables.getLast();
-
+        webDriver.switchTo().window(Iterables.getLast(webDriver.getWindowHandles()));
 
         return PageFactory.initElements(webDriver, TermsOfServicePage.class);
 
@@ -114,11 +111,9 @@ public class MainPage extends BasePage {
     public void closeAboutScreen() {
 
         closeButtonElement.click();
+        waitUntilElementClicable(settingsItem, 5);
 
     }
-
-
-
 
 
     /**

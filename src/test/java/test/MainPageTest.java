@@ -107,20 +107,26 @@ public class MainPageTest extends BaseTest  {
     @Test
     public void testTermsOfServiceWindow() {
 
+        String mainPageWindow;
+        String termsOfServiceWindow;
+
+        mainPageWindow = mainPage.getCurrentWindowHandle();
+
         mainPage.openAboutDisplay();
         termsOfServicePage = mainPage.openTermsOfServicePage();
 
-        Assert.assertTrue(termsOfServicePage.isTermsOfServicePageLoaded(), "TermsOfService page is not loaded");
-        Assert.assertEquals(termsOfServicePage.getPageURL(), "https://alerts.shotspotter.biz/", ("Wrong url before login"));
-        Assert.assertEquals(termsOfServicePage.getPageTitle(), "Shotspotter - Login", "Main page title is wrong");
+        termsOfServiceWindow = mainPage.getCurrentWindowHandle();
 
+        Assert.assertTrue(termsOfServicePage.isTermsOfServicePageLoaded(), "TermsOfService page is not loaded");
+        Assert.assertEquals(termsOfServicePage.getPageURL(), "http://www.shotspotter.com/apps/tos", ("TermsOfService Page. Wrong url"));
+        Assert.assertEquals(termsOfServicePage.getPageTitle(), "Apps-TOS", "TermsOfService page title is wrong");
+
+        termsOfServicePage.closeWindow(termsOfServiceWindow);
+        mainPage.switchWindowTo(mainPageWindow);
         mainPage.closeAboutScreen();
         mainPage.isPageLoaded();
 
     }
-
-
-
 
 
     @Test
@@ -133,7 +139,6 @@ public class MainPageTest extends BaseTest  {
             mainPage.switchTimeFramePeriod(timeFrameOption);
 
             int resultsCount = mainPage.getResultCount();
-//            int incidentCardsCount = mainPage.getIncidentCardsCount();
             int incidentCardsCount = mainPage.getListCount("IncidentCard");
             Assert.assertEquals(resultsCount, incidentCardsCount, "Results count does not match Incident Cards count");
 
@@ -151,12 +156,9 @@ public class MainPageTest extends BaseTest  {
 
         mainPage.switchTimeFramePeriod(timeFrameOption);
         int resultsCount = mainPage.getResultCount();
-//        int incidentCardsCount = mainPage.getIncidentCardsCount();
         int incidentCardsCount = mainPage.getListCount("IncidentCard");
         Assert.assertEquals(resultsCount, incidentCardsCount, "Results count does not match Incident Cards count");
     }
-
-
 
 
 }

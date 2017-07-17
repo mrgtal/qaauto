@@ -1,5 +1,6 @@
 package page;
 
+import com.google.common.collect.Iterables;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -86,6 +87,21 @@ public class BasePage {
         return wait.until(ExpectedConditions.elementToBeClickable(element));
 
     }
+
+    public void closeWindow(String windowHandle) {
+        switchWindowTo(windowHandle);
+        webDriver.close();
+    }
+
+    public void switchWindowTo(String windowHandle) {
+        webDriver.switchTo().window(windowHandle);
+    }
+
+    public String getCurrentWindowHandle() {
+        return webDriver.getWindowHandle();
+    }
+
+
 
 }
 
