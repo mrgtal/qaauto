@@ -32,6 +32,7 @@ public class MainPageTest extends BaseTest  {
         LoginPage loginPage = PageFactory.initElements(webDriver, LoginPage.class);
         loginPage.isLoginPageLoaded();
         mainPage = loginPage.loginAsReturnToLoginPage(username, password);
+        mainPage.isPageLoaded();
 
     }
 
@@ -85,10 +86,15 @@ public class MainPageTest extends BaseTest  {
     public void testValidateCardsDetailsV2() {
         String expectedCity = "Denver";
         mainPage.openIncidentsList();
-        List<String> listCities = mainPage.getIncidentCardsCities();
-        List<String> listStreets = mainPage.getIncidentCardsStreets();
-        List<String> listTimeStamps = mainPage.getIncidentCardsTimeStamps();
-
+//        List<String> listCities = mainPage.getIncidentCardsCities();
+//        List<String> listStreets = mainPage.getIncidentCardsStreets();
+//       List<String> listTimeStamps = mainPage.getIncidentCardsTimeStamps();
+        List<String> listCities = mainPage.getIncidentCardsStreetCityTime("city");
+        List<String> listStreets = mainPage.getIncidentCardsStreetCityTime("street");
+       List<String> listTimeStamps = mainPage.getIncidentCardsStreetCityTime("time");
+System.out.println(listCities);
+System.out.println(listStreets);
+System.out.println(listTimeStamps);
         for (String elementCity: listCities) {
             Assert.assertEquals(elementCity, expectedCity, "City is not Denver");
         }

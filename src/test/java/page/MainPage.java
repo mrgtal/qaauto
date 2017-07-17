@@ -316,6 +316,27 @@ public class MainPage extends BasePage {
         return listTimeStamps;
     }
 
+    public List<String> getIncidentCardsStreetCityTime(String listRequestedName) {
+        List<String> listRequested = new ArrayList<String>();
+        String listRequestedXpath;
+
+        switch (listRequestedName.toLowerCase()) {
+            case "street":
+                listRequestedXpath = "//div[@class='address']";
+            case "city":
+                listRequestedXpath = "//div[@class='city S']";
+            case "time":
+                listRequestedXpath = "//div[@class='cell-container']//div[@class='cell day']//div[@class='content']";
+            default:
+                listRequestedXpath = "";
+        }
+        for (WebElement incidentCard: incidentsCardsList) {
+            String timeStampText =
+                    incidentCard.findElement(By.xpath(listRequestedXpath)).getText();
+            listRequested.add(timeStampText);
+        }
+        return listRequested;
+    }
 
 
 }
