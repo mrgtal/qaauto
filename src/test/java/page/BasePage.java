@@ -88,15 +88,30 @@ public class BasePage {
 
     }
 
+    /**
+     * Method switches to requred window and close it
+     *
+     * @param windowHandle windowID to close
+     */
     public void closeWindow(String windowHandle) {
         switchWindowTo(windowHandle);
         webDriver.close();
     }
 
+    /**
+     * Method switches to required window
+     *
+     * @param windowHandle windowID to switch to
+     */
     public void switchWindowTo(String windowHandle) {
         webDriver.switchTo().window(windowHandle);
     }
 
+    /**
+     * Method to get current window ID
+     *
+     * @return current window ID
+     */
     public String getCurrentWindowHandle() {
         return webDriver.getWindowHandle();
     }

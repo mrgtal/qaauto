@@ -82,6 +82,7 @@ public class MainPageTest extends BaseTest  {
     }
 
 //2nd test. for implementation example
+//similar to testValidateIncidentCardDetails test
     @Test
     public void testValidateCardsDetailsV2() {
         String expectedCity = "Denver";

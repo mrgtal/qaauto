@@ -61,15 +61,11 @@ public class MainPage extends BasePage {
     @FindBy(xpath = "//button[text()='Close']")
     private WebElement closeButtonElement;
 
-
-
     private WebElement prepareWebElementWithDynamicXpath(int timeFramePeriod) {
 
         return webDriver.findElement(By.xpath(
                 String.format("//filter-menu/div[@class='available-options']//span[@class='time-increment' and text()='%d']", timeFramePeriod)));
     }
-
-
 
     /**
      * MainPage class constructor.
@@ -96,8 +92,6 @@ public class MainPage extends BasePage {
         aboutItem.click();
     }
 
-
-
     public TermsOfServicePage openTermsOfServicePage() {
 
         waitUntilElementClicable(termsOfServiceLink, 5);
@@ -114,7 +108,6 @@ public class MainPage extends BasePage {
         waitUntilElementClicable(settingsItem, 5);
 
     }
-
 
     /**
      * Method determines results count value
@@ -200,7 +193,6 @@ public class MainPage extends BasePage {
 
     }
 
-
     /**
      * Method validates if all cities are equal to required cityname
      *
@@ -217,7 +209,6 @@ public class MainPage extends BasePage {
         return -1;
     }
 
-
     /**
      * Method checks if all addresses are not empty
      *
@@ -232,7 +223,6 @@ public class MainPage extends BasePage {
         return -1;
     }
 
-
     /**
      * Method checks id all timestamps are unique
      *
@@ -245,7 +235,6 @@ public class MainPage extends BasePage {
         }
         return true;
     }
-
 
     /**
      * Method waits until results count is updated within provided time in seconds
@@ -271,42 +260,22 @@ public class MainPage extends BasePage {
 
 // methods for 2nd test of IncidentCardsFields
 //implementation example
-
+    /**
+     * Method to open list of incident cards
+     * waits until 1st element is displayed
+     */
     public void openIncidentsList() {
         listButton.click();
         waitUntilElementDisplayed(incidentsCardsList.get(1), 5);
     }
 
-    public List<String> getIncidentCardsCities() {
-        List<String> listCities = new ArrayList<String>();
-        for (WebElement incidentCard: incidentsCardsList) {
-            String cityText = incidentCard.findElement(By.xpath("//div[@class='city S']")).getText();
-            listCities.add(cityText);
-        }
-        return listCities;
-    }
 
-    public List<String> getIncidentCardsStreets() {
-
-        List<String> listStreets = new ArrayList<String>();
-        for (WebElement incidentCard: incidentsCardsList) {
-            String streetText = incidentCard.findElement(By.xpath("//div[@class='address']")).getText();
-            listStreets.add(streetText);
-        }
-        return listStreets;
-    }
-
-    public List<String> getIncidentCardsTimeStamps() {
-        List<String> listTimeStamps = new ArrayList<String>();
-        for (WebElement incidentCard: incidentsCardsList) {
-            String timeStampText =
-                    incidentCard.findElement(By.xpath("//div[@class='cell-container']//div[@class='cell day']//div[@class='content']")).getText();
-            listTimeStamps.add(timeStampText);
-        }
-        return listTimeStamps;
-    }
-
-
+    /**
+     * Method generates and returns relative xpath for child elements of selected list
+     *
+     * @param listRequestedName - determine which list requires xpath
+     * @return String relative xpath for child element
+     */
     public String createXpathForIncidentCardDetails (String listRequestedName) {
         switch (listRequestedName.toLowerCase()) {
             case "street":
@@ -320,6 +289,12 @@ public class MainPage extends BasePage {
         }
     }
 
+    /**
+     * Method collects all elements for required list
+     *
+     * @param listRequestedName listname to collect elements
+     * @return list of requested elements
+     */
     public List<String> getIncidentCardsStreetCityTime(String listRequestedName) {
         List<String> listRequested = new ArrayList<String>();
 
@@ -333,6 +308,12 @@ public class MainPage extends BasePage {
         return listRequested;
     }
 
+    /**
+     * Method checks if all elements within selected list are unique
+     *
+     * @param listRequested list of elements
+     * @return true/false
+     */
     public boolean isAllElementsUniqueInList(List<String> listRequested) {
 
         Set listToSet = new HashSet(listRequested);

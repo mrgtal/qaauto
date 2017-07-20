@@ -18,11 +18,15 @@ public class TermsOfServicePage extends BasePage {
 
     }
 
+    /**
+     * Method waits until TermsOfService page is loaded
+     *
+     * @return true/false
+     */
     public boolean isTermsOfServicePageLoaded() {
 
         return waitUntilElementDisplayed(termsOfServiceHeader, 15).isDisplayed();
     }
-
 
 
 }
