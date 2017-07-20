@@ -62,7 +62,7 @@ public class MainPageTest extends BaseTest  {
     public void testValidateIncidentCardDetails() {
 
         String requiredCity = "Denver";
-
+        mainPage.switchTimeFramePeriod(7);
         int incidentCardsCount = mainPage.getListCount("IncidentCard");
         Assert.assertNotEquals(incidentCardsCount, 0, "No Incident Cards Available");
 
@@ -85,18 +85,14 @@ public class MainPageTest extends BaseTest  {
     @Test
     public void testValidateCardsDetailsV2() {
         String expectedCity = "Denver";
+        mainPage.switchTimeFramePeriod(7);
         mainPage.openIncidentsList();
-//        List<String> listCities = mainPage.getIncidentCardsCities();
-//        List<String> listStreets = mainPage.getIncidentCardsStreets();
-//       List<String> listTimeStamps = mainPage.getIncidentCardsTimeStamps();
         List<String> listCities = mainPage.getIncidentCardsStreetCityTime("city");
         List<String> listStreets = mainPage.getIncidentCardsStreetCityTime("street");
-       List<String> listTimeStamps = mainPage.getIncidentCardsStreetCityTime("time");
-System.out.println(listCities);
-System.out.println(listStreets);
-System.out.println(listTimeStamps);
+      List<String> listTimeStamps = mainPage.getIncidentCardsStreetCityTime("time");
+
         for (String elementCity: listCities) {
-            Assert.assertEquals(elementCity, expectedCity, "City is not Denver");
+            Assert.assertEquals(elementCity, expectedCity, "City is not " + expectedCity);
         }
 
         for (String elementStreet: listStreets) {
@@ -106,6 +102,8 @@ System.out.println(listTimeStamps);
         for (String elementTimeStamp: listTimeStamps) {
             Assert.assertNotEquals(elementTimeStamp, "", "TimeStamp is empty");
         }
+
+        Assert.assertTrue(mainPage.isAllElementsUniqueInList(listTimeStamps), "TimeStamps are not unique");
 
     }
 

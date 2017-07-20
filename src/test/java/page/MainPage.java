@@ -269,19 +269,8 @@ public class MainPage extends BasePage {
         }
     }
 
-
-
-
-
-
-
 // methods for 2nd test of IncidentCardsFields
 //implementation example
-
-    public int getIncidentCardsCount() {
-        listButton.click();
-        return incidentsCardsList.size();
-    }
 
     public void openIncidentsList() {
         listButton.click();
@@ -298,6 +287,7 @@ public class MainPage extends BasePage {
     }
 
     public List<String> getIncidentCardsStreets() {
+
         List<String> listStreets = new ArrayList<String>();
         for (WebElement incidentCard: incidentsCardsList) {
             String streetText = incidentCard.findElement(By.xpath("//div[@class='address']")).getText();
@@ -316,27 +306,43 @@ public class MainPage extends BasePage {
         return listTimeStamps;
     }
 
-    public List<String> getIncidentCardsStreetCityTime(String listRequestedName) {
-        List<String> listRequested = new ArrayList<String>();
-        String listRequestedXpath;
 
+    public String createXpathForIncidentCardDetails (String listRequestedName) {
         switch (listRequestedName.toLowerCase()) {
             case "street":
-                listRequestedXpath = "//div[@class='address']";
+                return ".//div[@class='address']";
             case "city":
-                listRequestedXpath = "//div[@class='city S']";
+                return ".//div[@class='city S']";
             case "time":
-                listRequestedXpath = "//div[@class='cell-container']//div[@class='cell day']//div[@class='content']";
+                return ".//div[@class='cell-container']//div[@class='cell day']//div[@class='content']";
             default:
-                listRequestedXpath = "";
+                return "";
         }
+    }
+
+    public List<String> getIncidentCardsStreetCityTime(String listRequestedName) {
+        List<String> listRequested = new ArrayList<String>();
+
+        String listRequestedXpath;
+        listRequestedXpath = createXpathForIncidentCardDetails(listRequestedName);
+
         for (WebElement incidentCard: incidentsCardsList) {
-            String timeStampText =
-                    incidentCard.findElement(By.xpath(listRequestedXpath)).getText();
-            listRequested.add(timeStampText);
+            String requiredElement = incidentCard.findElement(By.xpath(listRequestedXpath)).getText();
+            listRequested.add(requiredElement);
         }
         return listRequested;
     }
+
+    public boolean isAllElementsUniqueInList(List<String> listRequested) {
+
+        Set listToSet = new HashSet(listRequested);
+        if(listToSet.size() < listRequested.size()) {
+            return false;
+        }
+        return true;
+    }
+
+
 
 
 }
