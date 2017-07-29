@@ -104,6 +104,7 @@ public class BasePage {
      * @param windowHandle windowID to switch to
      */
     public void switchWindowTo(String windowHandle) {
+
         webDriver.switchTo().window(windowHandle);
     }
 
@@ -116,7 +117,15 @@ public class BasePage {
         return webDriver.getWindowHandle();
     }
 
+    /**
+     * Method to get window ID of last opened window
+     *
+     * @return window ID of last opened window
+     */
+    public String getLastWindowHandle() {
 
+        return Iterables.getLast(webDriver.getWindowHandles());
+    }
 
 }
 

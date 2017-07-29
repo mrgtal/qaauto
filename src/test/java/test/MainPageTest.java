@@ -32,7 +32,7 @@ public class MainPageTest extends BaseTest  {
         LoginPage loginPage = PageFactory.initElements(webDriver, LoginPage.class);
         loginPage.isLoginPageLoaded();
         mainPage = loginPage.loginAsReturnToLoginPage(username, password);
-        mainPage.isPageLoaded();
+        mainPage.isMainPageLoaded();
 
     }
 
@@ -90,7 +90,7 @@ public class MainPageTest extends BaseTest  {
         mainPage.openIncidentsList();
         List<String> listCities = mainPage.getIncidentCardsStreetCityTime("city");
         List<String> listStreets = mainPage.getIncidentCardsStreetCityTime("street");
-      List<String> listTimeStamps = mainPage.getIncidentCardsStreetCityTime("time");
+        List<String> listTimeStamps = mainPage.getIncidentCardsStreetCityTime("time");
 
         for (String elementCity: listCities) {
             Assert.assertEquals(elementCity, expectedCity, "City is not " + expectedCity);
@@ -120,16 +120,14 @@ public class MainPageTest extends BaseTest  {
         mainPage.openAboutDisplay();
         termsOfServicePage = mainPage.openTermsOfServicePage();
 
-        termsOfServiceWindow = mainPage.getCurrentWindowHandle();
-
         Assert.assertTrue(termsOfServicePage.isTermsOfServicePageLoaded(), "TermsOfService page is not loaded");
         Assert.assertEquals(termsOfServicePage.getPageURL(), "http://www.shotspotter.com/apps/tos", ("TermsOfService Page. Wrong url"));
         Assert.assertEquals(termsOfServicePage.getPageTitle(), "Apps-TOS", "TermsOfService page title is wrong");
 
-        termsOfServicePage.closeWindow(termsOfServiceWindow);
+        termsOfServicePage.closeTermsOfServicePage();
         mainPage.switchWindowTo(mainPageWindow);
         mainPage.closeAboutScreen();
-        mainPage.isPageLoaded();
+        mainPage.isMainPageLoaded();
 
     }
 

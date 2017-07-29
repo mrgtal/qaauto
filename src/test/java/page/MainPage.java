@@ -1,6 +1,5 @@
 package page;
 
-import com.google.common.collect.Iterables;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -96,7 +95,7 @@ public class MainPage extends BasePage {
 
         waitUntilElementClicable(termsOfServiceLink, 5);
         termsOfServiceLink.click();
-        webDriver.switchTo().window(Iterables.getLast(webDriver.getWindowHandles()));
+        webDriver.switchTo().window(getLastWindowHandle());
 
         return PageFactory.initElements(webDriver, TermsOfServicePage.class);
 
@@ -108,6 +107,7 @@ public class MainPage extends BasePage {
         waitUntilElementClicable(settingsItem, 5);
 
     }
+
 
     /**
      * Method determines results count value
@@ -124,7 +124,7 @@ public class MainPage extends BasePage {
      *
      * @return true/false
      */
-    public boolean isPageLoaded() {
+    public boolean isMainPageLoaded() {
 
         return waitUntilElementDisplayed(settingsItem, 15).isDisplayed();
     }

@@ -28,5 +28,8 @@ public class TermsOfServicePage extends BasePage {
         return waitUntilElementDisplayed(termsOfServiceHeader, 15).isDisplayed();
     }
 
+    public void closeTermsOfServicePage() {
+        closeWindow(getCurrentWindowHandle());
+    }
 
 }
